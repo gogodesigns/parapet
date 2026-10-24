@@ -12,11 +12,12 @@
 <meta name="apple-mobile-web-app-status-bar-style" content="default">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
-<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png">
-<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<link rel="icon" href="/icons/icon-192.png" sizes="192x192" type="image/png" media="(prefers-color-scheme: light)">
+<link rel="icon" href="/icons/icon-192-dark.png" sizes="192x192" type="image/png" media="(prefers-color-scheme: dark)">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon-dark.png">
 <meta property="og:title" content="Parapet">
 <meta property="og:description" content="A spoiler-safe companion to the Empyrean series.">
-<meta property="og:image" content="/icons/icon-512.png">
+<meta property="og:image" content="/icons/icon-512-dark.png">
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
 <title>Parapet Companion</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -74,6 +75,8 @@ svg.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-widt
 /* shell */
 .app{max-width:1240px;margin:0 auto;display:grid;grid-template-columns:minmax(0,1fr)}
 .side{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;padding-block:16px 6px;min-width:0}
+/* phones: Safari's top edge blur reaches a little past the status bar, so the title starts lower */
+@media (max-width:959px){.side{padding-top:30px}}
 .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand > div{min-width:0}
 .brand .brand-sub{color:var(--muted);font-size:.85rem;line-height:1.2}
@@ -1371,7 +1374,7 @@ const E=[
   {"t":"A Third Wing first-year manifests it in public and Professor Carr kills him on the spot.","at":"fw18","v":1},
   {"t":"Xaden has a form of it: he reads intentions, the half-second before a thought.","at":"if56","v":1},
   {"t":"Xaden starts hearing thoughts no one sent.","at":"os21","v":1},
-  {"t":"Dream-walking is a form of it.","at":"os50","v":1}]},
+  {"t":"Violet's dream-walking turns out to be a form of it. Xaden's kind reads intentions; he doesn't walk in dreams.","at":"os50","v":1}]},
  {"id":"sig-mending","kind":"signet","name":"Mending","appear":"fw6","holders":[{"id":"nolon","at":"fw6"},{"id":"brennan","at":"fw6"}],"tag":[{"t":"Signet","at":"fw6"}],"rel":["nolon","brennan"],"facts":[
   {"t":"Putting broken things back the way they were, bones included. Rare. Healers, by contrast, have no magic.","at":"fw6","v":1},
   {"t":"Brennan mends Violet's venin poisoning in Aretia.","at":"fw39","v":1},
@@ -1443,6 +1446,7 @@ const E=[
  {"id":"sig-dream","kind":"signet","name":"Dream-walking","appear":"os50","holders":[{"id":"violet","at":"os50"}],"tag":[{"t":"Signet","at":"os50"}],"rel":["violet"],"facts":[
   {"t":"Entering other people's dreams, a form of inntinnsic.","at":"os50","v":1},
   {"t":"Violet's second signet, from Andarna. She can even nudge a dream.","at":"os50","v":1},
+  {"t":"Only Violet has it. Xaden's second signet is a different form of inntinnsic: reading intentions.","at":"os50","v":1},
   {"t":"It stays with Violet after the bond breaks.","at":"os56","v":1}]},
  {"id":"sig-precog","kind":"signet","name":"Precognition","appear":"os64","holders":[{"id":"aaric","at":"os64"}],"tag":[{"t":"Signet","at":"os64"}],"rel":["aaric"],"facts":[
   {"t":"True foresight, beyond battles. Aaric has it.","at":"os64","v":1}]},
@@ -2030,6 +2034,19 @@ const E=[
   {"t":"Making plants grow. It helps change a rune.","at":"os4","v":1}]},
  {"id":"sig-stone","kind":"signet","name":"Turning things to stone","appear":"os63","holders":[{"id":"imogen","at":"os63"}],"tag":[{"t":"Signet","at":"os63"}],"rel":["imogen"],"facts":[
   {"t":"Imogen's second signet.","at":"os63","v":1}]},
+ {"id":"gift-mindwork","kind":"signet","group":"flier","name":"Mindwork","appear":"if28","holders":[{"name":"Most fliers","at":"if40"},{"id":"cat","at":"if47"}],"tag":[{"t":"Lesser magic","at":"if28"}],"rel":["cat"],"facts":[
+  {"t":"Fliers can't manifest signets, but they sharpen lesser magic into weapons, mindwork above all.","at":"if28","v":1},
+  {"t":"Most fliers' gifts work on the mind. Riders keep their shields up around them.","at":"if40","v":1},
+  {"t":"In Aretia the fliers' power is returning slowly: about half so far, and no mindwork yet.","at":"if45","v":1},
+  {"t":"Cat uses it to cheat in a challenge against Violet.","at":"if47","v":1},
+  {"t":"Once Basgiath's wardstone is changed, fliers can wield inside Navarre too.","at":"os7","v":1},
+  {"t":"Veteran riders rate fliers as dangerous at mindwork as they are hand to hand.","at":"os14","v":1},
+  {"t":"In Signet Sparring, Cat and Quinn combine to scramble Garrick's head long enough for Violet to strike.","at":"os17","v":1}]},
+ {"id":"gift-emotion","kind":"signet","group":"flier","name":"Heightening emotions","appear":"if41","holders":[{"id":"cat","at":"if41"}],"tag":[{"t":"Cat's gift","at":"if41"}],"rel":["cat"],"facts":[
+  {"t":"Cat's gift: she magnifies whatever the people near her already feel.","at":"if41","v":1},
+  {"t":"It only works within a short distance.","at":"if47","v":1},
+  {"t":"One of Violet's daggers carries a rune that protects her from it.","at":"if48","v":1},
+  {"t":"In Signet Sparring she warns a rider she'd be in their head, turning their own feelings against them, before they could strike.","at":"os15","v":1}]},
  {"id":"alic","kind":"person","g":"m","name":"Prince Alic","appear":"if32","tag":[{"t":"Prince of Navarre","at":"if32"},{"t":"Killed at the Threshing","at":"if32","state":"fallen"}],"rel":["aaric","xaden","garrick","tauri"],"facts":[
   {"t":"Aaric's brother. Xaden killed him at the Threshing.","at":"if32","v":1},
   {"t":"Second in line to the throne. Bullies Garrick, and taunts Xaden about the lands and title his family lost.","at":"if32","td":3,"v":1},
@@ -2219,7 +2236,7 @@ const chCode=n=>CH[n-1].b+CH[n-1].c;
 function bookStatus(b){if(S.pos>=b.end)return 'Read';if(S.pos>=b.start)return `${chLabel(S.pos)} of ${b.last}`;return 'Not started'}
 const ico=k=>`<svg class="i" viewBox="0 0 24 24" aria-hidden="true">${IC[k]}</svg>`;
 const PRIMARY=['codex','dragons','signets','places'];
-const BLURB={codex:'People of the Empyrean',dragons:'Dragons, gryphons, their colors, tails and riders',signets:'The powers riders manifest through their bonds, and who holds them',places:'Kingdoms, provinces, cities, outposts and isles, and why they matter',bonds:"Who is bonded to whom. Only bonds you've seen form are shown.",timeline:'The series in story order, part by part',glossary:'Every term the books use, from the quadrant to the isles'};
+const BLURB={codex:'People of the Empyrean',dragons:'Dragons, gryphons, their colors, tails and riders',signets:'The powers riders manifest through their bonds, the gifts fliers hone, and who holds them',places:'Kingdoms, provinces, cities, outposts and isles, and why they matter',bonds:"Who is bonded to whom. Only bonds you've seen form are shown.",timeline:'The series in story order, part by part',glossary:'Every term the books use, from the quadrant to the isles'};
 const fmt=n=>n.toLocaleString('en-US');
 const TITLES=/^(the|professor|colonel|general|captain|lieutenant|major|king|queen|prince|duke|duchess|viscount|lt\.?)$/i;
 function initials(e){const w=String(nm(e)).replace(/[^A-Za-z' -]/g,' ').split(/\s+/).filter(x=>x&&!TITLES.test(x));
@@ -2238,11 +2255,11 @@ function avatar(e,big){const lg=big?' lg':'';
   if(isGryphon(e))return `<span class="av gryphon${lg}" aria-hidden="true"><svg viewBox="0 0 24 24">${IC.feather}</svg></span>`;
   if(e.kind==='dragon'){const c=atNow(e.color);
     return `<span class="av dragon${lg}${c?'':' nocolor'}" aria-hidden="true"${c?` style="background:${c};color:${inkOn(c)}"`:''}><svg viewBox="0 0 24 24">${IC.dragons}</svg></span>`}
-  if(e.kind==='signet')return `<span class="av signet${lg}" aria-hidden="true"><svg viewBox="0 0 24 24">${IC.signets}</svg></span>`;
+  if(e.kind==='signet')return `<span class="av signet${lg}" aria-hidden="true"><svg viewBox="0 0 24 24">${e.group==='flier'?IC.feather:IC.signets}</svg></span>`;
   return `<span class="av loc${lg}" aria-hidden="true"><svg viewBox="0 0 24 24">${IC.places}</svg></span>`}
 function dragonLabel(e){const col=atNow(e.attrs.Color),tail=atNow(e.attrs.Tail);
   const parts=[col,tail].filter(v=>v&&v!=='—');return parts.join(parts.some(v=>/,/.test(v))?' · ':' ')||(e.attrs.Breed?atNow(e.attrs.Breed):(e.attrs.Kind||'Dragon'))}
-const kindLabel=e=>isGryphon(e)?'Gryphon':({dragon:'Dragon',place:'Place',signet:'Signet',person:'Person'})[e.kind];
+const kindLabel=e=>isGryphon(e)?'Gryphon':e.group==='flier'?'Flier gift':({dragon:'Dragon',place:'Place',signet:'Signet',person:'Person'})[e.kind];
 
 /* ---------- RENDER: your place ---------- */
 function renderRail(){
@@ -2347,6 +2364,14 @@ function listView(kind,title,blurb){
   ${items.length?`<div class="grid">${items.map(card).join('')}</div>`:`<div class="empty">${S.q?`Nothing you've read so far matches “${esc(S.q)}”. Search only looks through open entries.`:'Nothing here yet.'}</div>`}
   ${hidden&&S.hints&&!S.q?laterNote(`${hidden} more ${({dragon:'dragons and gryphons appear',signet:'signets are revealed',person:'people appear'})[kind]} later in the series.`):''}`;
 }
+/* signets: riders' signets, then the fliers' gifts, which come from lesser magic rather than a signet */
+function signetsView(){
+  const items=E.filter(e=>e.kind==='signet'&&visible(e)&&matches(e)),hidden=E.filter(e=>e.kind==='signet'&&laterE(e)).length;
+  const sec=(title,sub,g)=>g.length?`<section class="pgroup"><div class="pgroup-h"><div class="pg-t"><h3>${title}</h3><span class="muted">${sub}</span></div><span class="count">${g.length}</span></div><div class="grid">${g.map(card).join('')}</div></section>`:'';
+  const riders=items.filter(e=>e.group!=='flier'),fliers=items.filter(e=>e.group==='flier');
+  return `${editorBanner()}${vhead('Signets',BLURB.signets,S.q?`${items.length} match${items.length===1?'':'es'}`:`${items.length} open`)}
+  ${items.length?(fliers.length?sec('Rider signets','Each rider manifests one through their dragon',riders)+sec('Flier gifts',"Fliers don't manifest signets. They hone lesser magic, mostly mindwork",fliers):`<div class="grid">${riders.map(card).join('')}</div>`):`<div class="empty">${S.q?`Nothing you've read so far matches “${esc(S.q)}”. Search only looks through open entries.`:'Nothing here yet.'}</div>`}
+  ${hidden&&S.hints&&!S.q?laterNote(`${hidden} more signets and gifts are revealed later in the series.`):''}`}
 function chain(e){const out=[];let p=e.parent&&byId[e.parent];while(p&&visible(p)){out.push(p);p=p.parent&&byId[p.parent]}return out}
 function crumb(e){return chain(e).map(p=>nm(p)).join(' · ')}
 function placesView(){
@@ -2457,7 +2482,7 @@ function renderView(){
   const v=$('#view');
   if(S.tab==='codex')v.innerHTML=listView('person','Codex',BLURB.codex);
   else if(S.tab==='dragons')v.innerHTML=dragonsView();
-  else if(S.tab==='signets')v.innerHTML=listView('signet','Signets',BLURB.signets);
+  else if(S.tab==='signets')v.innerHTML=signetsView();
   else if(S.tab==='places')v.innerHTML=placesView();
   else if(S.tab==='bonds')v.innerHTML=bondsView();
   else if(S.tab==='timeline')v.innerHTML=timelineView();
@@ -2486,7 +2511,8 @@ function openDetail(id){
   else if(e.kind==='person'){const sg=sigsOf(e);const tiles=[];
     if(e.g&&PRON[e.g])tiles.push(`<div><dt>Pronouns</dt><dd>${PRON[e.g]}</dd></div>`);
     const fam=familyOf(e);if(fam.length)tiles.push(`<div class="span2"><dt>Family</dt><dd class="fam">${fam.map(f=>`<span><span class="muted">${esc(f.rel)}</span> <button class="inlink" data-open="${f.o.id}">${esc(nm(f.o))}</button></span>`).join('')}</dd></div>`);
-    if(sg.length)tiles.push(`<div><dt>Signet${sg.length>1?'s':''}</dt><dd>${sg.map(x=>`<button class="inlink" data-open="${x.id}">${esc(nm(x))}</button>`).join(', ')}</dd></div>`);
+    const tile=(lab,xs)=>xs.length?tiles.push(`<div${xs.length>1?' class="span2"':''}><dt>${lab}${xs.length>1?'s':''}</dt><dd>${xs.map(x=>`<button class="inlink" data-open="${x.id}">${esc(nm(x))}</button>`).join(', ')}</dd></div>`):0;
+    tile('Signet',sg.filter(x=>x.group!=='flier'));tile('Gift',sg.filter(x=>x.group==='flier'));
     if(tiles.length)attrs=`<dl class="attrs">${tiles.join('')}</dl>`}
   else if(e.kind==='place')attrs=`<dl class="attrs"><div><dt>Type</dt><dd>${esc(PTYPE[e.type])}</dd></div><div><dt>Part of</dt><dd>${ch.length?ch.map(p=>`<button class="inlink" data-open="${p.id}">${esc(nm(p))}</button>`).join(' · '):'—'}</dd></div></dl>`;
   const n=sealedCount(e);
