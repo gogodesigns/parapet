@@ -2113,7 +2113,7 @@ STORIES.forEach(s=>s.line=P(s.line));
 const MAX=CH.length;
 const store={get(k,d){try{const v=localStorage.getItem('parapet.'+k);return v==null?d:JSON.parse(v)}catch(e){return d}},
   set(k,v){try{localStorage.setItem('parapet.'+k,JSON.stringify(v))}catch(e){}}};
-const DEFAULT_POS=P('fw16');
+const DEFAULT_POS=P('fw1');
 function startPos(){const p=store.get('pos',null);
   if(typeof p==='string'){try{return P(p)}catch(e){}}else if(typeof p==='number'&&p>=1&&p<=CH.length)return p;
   const old=store.get('beat',null);if(old==null)return DEFAULT_POS;
