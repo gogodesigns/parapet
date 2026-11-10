@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="description" content="A spoiler-safe companion to Rebecca Yarros's Empyrean series. Set the last chapter you read and see only what you've reached.">
+<meta name="description" content="Spoiler-safe reading companions for long fantasy series. Set the last chapter you read and see only what you've reached. First guide: the Empyrean.">
 <meta name="theme-color" content="#E8EAED" media="(prefers-color-scheme: light)">
 <meta name="theme-color" content="#101218" media="(prefers-color-scheme: dark)">
 <meta name="apple-mobile-web-app-capable" content="yes">
@@ -16,10 +16,10 @@
 <link rel="icon" href="/icons/icon-192-dark.png" sizes="192x192" type="image/png" media="(prefers-color-scheme: dark)">
 <link rel="apple-touch-icon" href="/icons/apple-touch-icon-dark.png">
 <meta property="og:title" content="Parapet">
-<meta property="og:description" content="A spoiler-safe companion to the Empyrean series.">
+<meta property="og:description" content="Spoiler-safe reading companions. Look anything up, spoil nothing.">
 <meta property="og:image" content="/icons/icon-512-dark.png">
 <style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
-<title>Parapet Companion</title>
+<title>Parapet</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=Alegreya+Sans:ital,wght@0,400;0,500;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
@@ -78,7 +78,7 @@ svg.i{width:20px;height:20px;flex:none;fill:none;stroke:currentColor;stroke-widt
 /* phones: Safari's top edge blur reaches a little past the status bar, so the title starts lower */
 @media (max-width:959px){.side{padding-top:20px}}
 .brand{display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand > div{min-width:0}
+.brand > div,.brand > button{min-width:0}
 .brand .brand-sub{color:var(--muted);font-size:.85rem;line-height:1.2}
 /* theme switch: light, dark, or follow the device */
 .themesw{display:flex;gap:2px;padding:3px;border-radius:999px;background:var(--sheet);border:1px solid var(--rule-soft);flex:none}
@@ -456,6 +456,128 @@ footer{margin-top:44px;padding-top:16px;border-top:1px solid var(--rule-soft);co
 #toast{position:fixed;left:50%;bottom:calc(var(--bar-gap) + 86px);transform:translateX(-50%);background:var(--ink);color:var(--paper);padding:12px 18px;border-radius:999px;z-index:30;font-size:.92rem;max-width:calc(100% - 32px);box-shadow:var(--shadow-lg);text-align:center}
 @media (min-width:960px){#toast{bottom:24px}}
 
+/* ---------- HOME LAYER: first run, library and series pages ---------- */
+body.home-open{overflow:hidden}
+.home{position:fixed;inset:0;z-index:18;background:var(--paper);overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;
+  padding:calc(env(safe-area-inset-top,0px) + 20px) calc(16px + env(safe-area-inset-right,0px)) calc(env(safe-area-inset-bottom,0px) + 28px) calc(16px + env(safe-area-inset-left,0px))}
+.home-in{max-width:1040px;margin:0 auto;display:grid;gap:22px;animation:home-in .32s cubic-bezier(.2,.8,.2,1)}
+.home-in.narrow{max-width:560px}
+@keyframes home-in{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.home-in{animation:none}}
+.home-bar{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.home-bar h1{font-family:var(--f-display);font-weight:400;font-size:1.6rem;line-height:1}
+.home-bar .hb-sub{color:var(--muted);font-size:.85rem;line-height:1.2}
+.backbtn{display:inline-flex;align-items:center;gap:6px;min-height:44px;padding:0 14px 0 8px;border:1px solid var(--rule-soft);background:var(--sheet);border-radius:999px;font-weight:500;font-size:.95rem}
+.backbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transform:rotate(180deg)}
+.brandbtn{background:none;border:0;padding:0;text-align:left;border-radius:8px;display:block}
+.brandbtn:hover h1{color:var(--seal)}
+.h-display{font-family:var(--f-display);font-weight:400;font-size:clamp(2rem,7vw,3rem);line-height:1.04;text-wrap:balance}
+.h-lede{font-size:1.06rem;line-height:1.55;color:var(--ink);max-width:62ch}
+.h-sec{display:flex;align-items:baseline;justify-content:space-between;gap:12px;margin-bottom:12px}
+.h-sec h3{font-family:var(--f-display);font-weight:400;font-size:1.45rem}
+
+/* typographic covers: our own, never the publishers' art */
+.cover{--cv:#3B3F4A;--cv2:#23262E;--cvi:#F3EFE6;position:relative;display:grid;place-items:center;aspect-ratio:3/4;width:100%;border-radius:10px 14px 14px 10px;
+  background:linear-gradient(135deg,var(--cv),var(--cv2));color:var(--cvi);overflow:hidden;box-shadow:var(--shadow);flex:none}
+.cover::before{content:"";position:absolute;inset:8px;border:1px solid color-mix(in srgb,var(--cvi) 38%,transparent);border-radius:6px 9px 9px 6px}
+.cover::after{content:"";position:absolute;left:0;top:0;bottom:0;width:7px;background:rgba(0,0,0,.22)}
+.cv-in{position:relative;display:grid;justify-items:center;gap:8px;padding:18px 14px;text-align:center}
+.cv-in svg{width:34%;max-width:56px;height:auto;aspect-ratio:1;opacity:.95}
+.cv-t{font-family:var(--f-display);font-size:clamp(.95rem,3.4vw,1.25rem);line-height:1.08;text-wrap:balance}
+.cv-r{width:26px;height:1px;background:currentColor;opacity:.6}
+.cover.sm{width:64px;border-radius:6px 9px 9px 6px}.cover.sm::before{inset:4px}.cover.sm::after{width:4px}
+.cover.sm .cv-in{padding:6px;gap:4px}.cover.sm .cv-t{font-size:.6rem}.cover.sm .cv-r{display:none}.cover.sm .cv-in svg{width:46%}
+.c-empyrean{--cv:#8E2434;--cv2:#4E121C;--cvi:#F4E9D8}
+.c-hp{--cv:#2E3A6E;--cv2:#161C3C}.c-acotar{--cv:#2F5D4A;--cv2:#153126}.c-asoiaf{--cv:#4A5868;--cv2:#222B36}
+.c-lotr{--cv:#7A5B22;--cv2:#3A2A0C}.c-tog{--cv:#1F5F6B;--cv2:#0D2F36}
+
+/* library */
+.nowcard{display:grid;grid-template-columns:minmax(0,120px) minmax(0,1fr);gap:18px;align-items:center;background:var(--sheet);border:1px solid var(--rule-soft);border-radius:var(--r-lg);padding:18px;box-shadow:var(--shadow)}
+.now-t{display:grid;gap:8px;min-width:0}
+.now-t h4{font-family:var(--f-display);font-weight:400;font-size:1.6rem;line-height:1.05}
+.now-bar{height:6px;border-radius:3px;background:var(--rule);overflow:hidden}.now-bar i{display:block;height:100%;background:var(--seal);border-radius:3px}
+.now-act{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+@media (min-width:720px){.nowcard{grid-template-columns:150px minmax(0,1fr);padding:24px;gap:26px}}
+.shelf{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:640px){.shelf{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media (min-width:960px){.shelf{grid-template-columns:repeat(5,minmax(0,1fr))}}
+.scard{display:grid;gap:10px;align-content:start;text-align:left;background:var(--sheet);border:1px solid var(--rule-soft);border-radius:var(--r);padding:12px;min-width:0;transition:transform .15s,box-shadow .15s,border-color .15s}
+.scard:hover{transform:translateY(-2px);box-shadow:var(--shadow-lg);border-color:var(--rule)}
+.scard strong{font-size:1rem;line-height:1.2}
+.scard small{color:var(--muted);font-size:.84rem;line-height:1.3}
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:.72rem;font-weight:700;letter-spacing:.05em;text-transform:uppercase;padding:4px 8px;border-radius:999px;background:var(--brass-soft);color:var(--brass);width:max-content;max-width:100%}
+.pill.live{background:var(--ok-soft);color:var(--ok)}
+.pill.live::before{content:"";width:6px;height:6px;border-radius:50%;background:currentColor}
+
+/* series page */
+.sp{display:grid;gap:22px}
+.sp-hero{display:grid;grid-template-columns:minmax(0,110px) minmax(0,1fr);gap:18px;align-items:end}
+.sp-hero .meta{color:var(--muted);font-size:.95rem}
+@media (min-width:720px){.sp-hero{grid-template-columns:190px minmax(0,1fr);gap:30px}.sp{grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);align-items:start;column-gap:36px}.sp > .wide{grid-column:1/-1}}
+.vibes{display:flex;flex-wrap:wrap;gap:8px}
+.vibes span{font-size:.88rem;font-weight:500;padding:6px 12px;border-radius:999px;background:var(--sheet);border:1px solid var(--rule-soft)}
+.why{list-style:none;margin:0;padding:0;display:grid;gap:10px}
+.why li{display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;background:var(--sheet);border:1px solid var(--rule-soft);border-radius:var(--r);padding:14px 16px}
+.why b{display:block}.why span{color:var(--muted);font-size:.95rem}
+.why .n{font-family:var(--f-display);font-size:1.5rem;line-height:1;color:var(--seal);min-width:1.1em}
+.infobox{background:var(--sheet);border:1px solid var(--rule-soft);border-radius:var(--r);padding:16px 18px;display:grid;gap:10px}
+.infobox dl{margin:0;display:grid;gap:8px}.infobox dt{font-size:.74rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}.infobox dd{margin:0}
+.order{list-style:none;margin:0;padding:0;display:grid;gap:6px;counter-reset:o}
+.order li{counter-increment:o;display:flex;gap:10px;align-items:baseline}.order li::before{content:counter(o);font-family:var(--f-mono);font-size:.78rem;color:var(--muted);min-width:1.2em}
+.order li.xt::before{content:"+"}
+.note{font-size:.9rem;color:var(--muted)}
+
+/* first run */
+.ob{min-height:calc(100dvh - env(safe-area-inset-top,0px) - env(safe-area-inset-bottom,0px) - 48px);display:grid;grid-template-rows:auto 1fr auto;gap:18px}
+.ob-top{display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.ob-dots{display:flex;gap:6px}.ob-dots i{width:22px;height:4px;border-radius:2px;background:var(--rule)}.ob-dots i.on{background:var(--seal)}
+.ob-body{display:grid;gap:16px;align-content:start}
+.ob-foot{position:sticky;bottom:0;display:flex;gap:10px;padding:12px 0 4px;background:linear-gradient(to top,var(--paper) 72%,transparent)}
+.ob-foot .btn{flex:1;min-height:52px;font-size:1rem}.ob-foot .btn.ghost{flex:0 0 auto}
+.demo{background:var(--sheet);border:1px solid var(--rule-soft);border-radius:var(--r-lg);padding:16px;display:grid;gap:10px;box-shadow:var(--shadow)}
+.demo-h{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.demo-h b{font-variant-numeric:tabular-nums}
+.stepper{display:flex;align-items:center;gap:6px}
+.stepper button{width:40px;height:40px;border-radius:50%;border:1px solid var(--rule);background:var(--paper);font-size:1.2rem;line-height:1;display:grid;place-items:center}
+.stepper button:disabled{opacity:.35}
+.drow{display:grid;grid-template-columns:auto 1fr auto;gap:12px;align-items:center;padding:10px 12px;border-radius:12px;border:1px solid var(--rule-soft);background:var(--paper);transition:background .3s,border-color .3s,opacity .3s}
+.drow .dav{width:36px;height:36px;border-radius:50%;background:var(--seal-soft);color:var(--seal);display:grid;place-items:center;flex:none}
+.drow .dav svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.drow .dt{display:grid;gap:5px;min-width:0}.drow .dt b{font-size:.95rem}
+.drow .bars{display:grid;gap:5px}.drow .bars i{display:block;height:6px;border-radius:3px;background:var(--rule)}.drow .bars i + i{width:62%}
+.drow .dc{font-family:var(--f-mono);font-size:.7rem;color:var(--muted);border:1px solid var(--rule-soft);border-radius:6px;padding:2px 6px}
+.drow.shut{border-style:dashed;border-color:var(--rule);background:transparent}
+.drow.shut .dav{background:transparent;color:var(--muted);box-shadow:inset 0 0 0 1px var(--rule)}
+.drow.shut .dt b{color:var(--muted);font-weight:500}.drow.shut .bars{display:none}
+.drow.just{animation:unseal .5s cubic-bezier(.2,.8,.2,1)}
+@keyframes unseal{from{transform:scale(.98);background:var(--seal-soft)}to{transform:none}}
+@media (prefers-reduced-motion:reduce){.drow.just{animation:none}}
+.pick{display:grid;gap:10px}
+.opt{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;text-align:left;width:100%;padding:14px 16px;border:1px solid var(--rule-soft);background:var(--sheet);border-radius:var(--r);min-height:64px}
+.opt:hover{border-color:var(--ink)}
+.opt[aria-pressed="true"],.opt[aria-checked="true"]{border-color:var(--seal);box-shadow:0 0 0 1px var(--seal)}
+.opt .rd{width:22px;height:22px;border-radius:50%;border:2px solid var(--rule);display:grid;place-items:center;flex:none}
+.opt[aria-checked="true"] .rd{border-color:var(--seal)}.opt[aria-checked="true"] .rd::after{content:"";width:10px;height:10px;border-radius:50%;background:var(--seal)}
+.opt b{display:block}.opt small{color:var(--muted);font-size:.9rem}
+.opt.sr{grid-template-columns:64px 1fr}
+.opt.sr.tba .cover{opacity:.85}
+.pick.two{grid-template-columns:repeat(2,minmax(0,1fr))}
+.pick.two .opt{grid-template-columns:44px 1fr;gap:10px;padding:10px;min-height:0}.pick.two .cover.sm{width:44px}.pick.two .cover.sm .cv-t{display:none}
+.pick.two .opt b{font-size:.9rem;line-height:1.2}.pick.two .opt small{font-size:.8rem}
+.nw{white-space:nowrap}
+.where-sub{display:grid;gap:10px;padding:14px 16px;border:1px solid var(--rule-soft);border-radius:var(--r);background:var(--sheet)}
+.where-sub label{font-size:.78rem;font-weight:700;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.where-sub select{width:100%;height:48px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);color:var(--ink);padding:0 12px;font-size:1rem}
+.bookseg{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.bookseg button{min-height:48px;padding:6px 8px;border:1px solid var(--rule);border-radius:12px;background:var(--paper);font-size:.9rem;font-weight:500;line-height:1.15}
+.bookseg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.side-links{display:none}
+@media (min-width:960px){.side-links{display:grid;gap:2px;margin-top:6px;padding-top:10px;border-top:1px solid var(--rule-soft)}
+  .side-links button{display:flex;align-items:center;gap:10px;min-height:40px;padding:0 12px;border:0;background:none;border-radius:10px;color:var(--muted);font-size:.92rem;text-align:left}
+  .side-links button:hover{background:var(--sheet);color:var(--ink)}
+  .side-links svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}}
+.morelist .sep{height:1px;background:var(--rule-soft);margin:6px 0}
+
 /* Splash: shown on every open. Pure CSS timing, so it always clears even if the script fails; tap to skip */
 .splash{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:#F1EADB;color:#191C24;
   animation:splash-out .42s cubic-bezier(.4,0,.2,1) 1.15s forwards;-webkit-user-select:none;user-select:none;cursor:default}
@@ -489,13 +611,13 @@ try{if(sessionStorage.getItem('parapet.splash'))document.documentElement.classLi
     <div class="splash-mark"><svg viewBox="0 0 24 24"><path fill="currentColor" stroke="none" fill-rule="evenodd" d="M16.25 12.25 15.15 11.90 14.29 11.78 13.40 11.84 12.39 12.10 11.58 12.52 10.99 12.97 10.34 13.71 9.95 14.42 9.77 15.17 9.77 15.61 9.92 15.82 10.25 15.91 11.02 15.70 12.21 15.67 12.92 15.79 13.66 16.06 14.35 16.47 14.94 17.07 15.33 17.75 15.48 18.38 15.48 18.91 15.33 19.57 15.06 20.16 14.71 20.67 13.96 21.38 13.31 21.80 12.42 22.18 11.17 22.51 11.05 22.69 11.05 22.93 11.26 23.16 12.45 23.31 13.72 23.28 14.97 23.04 15.95 22.69 16.46 22.42 17.20 21.91 17.98 21.17 18.54 20.40 18.96 19.63 19.25 18.79 19.43 17.72 19.40 16.56 19.14 15.43 18.60 14.33 17.95 13.47 17.20 12.82ZM13.31 13.06 13.81 12.97 14.82 13.03 15.48 13.23 16.07 13.53 16.61 13.92 17.26 14.60 17.68 15.26 17.98 16.00 18.12 16.65 18.18 17.40 18.06 18.29 17.80 19.12 17.44 19.80 16.94 20.46 16.37 20.99 15.72 21.44 15.69 21.38 16.13 20.79 16.46 20.13 16.67 19.45 16.73 19.00 16.73 18.29 16.64 17.72 16.40 17.07 16.13 16.59 15.75 16.09 15.24 15.61 14.74 15.26 14.11 14.93 13.40 14.69 12.80 14.57 12.18 14.51 11.26 14.54 11.55 14.13 12.15 13.59 12.86 13.20ZM15.45 6.57 15.36 6.72 15.36 6.99 15.72 7.61 16.01 8.00 16.40 8.21 16.82 8.30 17.29 8.33 17.56 8.21 17.65 8.06 17.65 7.79 17.47 7.41 17.26 7.17 15.89 6.51 15.69 6.49ZM9.12 0.69 8.88 0.78 8.70 1.04 8.70 1.49 8.79 1.97 9.21 2.95 9.59 3.54 10.04 4.08 9.95 4.14 9.03 4.26 7.72 4.64 6.86 5.03 5.67 5.77 5.01 6.31 4.27 7.08 3.47 8.18 2.99 9.04 2.99 9.25 3.11 9.43 3.35 9.52 3.53 9.49 4.24 8.95 5.04 8.48 6.08 8.00 6.74 7.79 6.86 7.82 5.85 8.60 5.04 9.43 4.27 10.50 3.74 11.48 3.26 12.73 3.02 13.77 2.93 14.57 2.99 16.56 3.11 16.77 3.35 16.86 3.62 16.77 3.74 16.62 4.00 15.91 4.36 15.29 4.48 16.71 4.66 17.49 4.92 18.26 5.40 19.21 5.94 19.98 6.32 20.43 6.71 20.79 7.36 21.26 8.37 21.77 9.41 22.03 10.63 22.09 11.70 21.91 12.62 21.62 13.19 21.32 13.28 21.17 13.28 20.93 13.07 20.70 12.36 20.64 11.49 20.40 10.93 20.13 10.42 19.80 9.71 19.15 9.35 18.70 9.09 18.29 8.73 17.51 8.43 16.24 8.40 15.49 8.49 14.66 8.64 14.01 9.00 13.03 9.38 12.31 9.77 11.78 10.54 10.97 11.35 10.38 12.21 9.93 13.16 9.64 13.34 9.93 13.72 10.35 14.35 10.74 15.00 10.91 15.66 10.91 16.61 10.68 17.02 10.71 17.62 10.94 18.51 11.45 18.69 11.93 18.84 12.07 19.05 12.13 19.31 12.10 19.76 11.96 20.15 11.72 20.62 11.27 20.92 10.77 21.07 10.20 21.07 9.31 21.01 9.01 20.83 8.77 20.12 8.51 18.99 7.56 18.90 6.99 18.60 6.40 18.24 6.07 17.44 5.56 16.67 4.49 15.95 3.78 15.12 3.13 14.20 2.50 13.78 2.32 13.64 2.35 13.49 2.47 13.40 2.62 13.40 2.80 13.99 3.66 13.96 3.69 12.48 3.16 11.46 2.68 10.93 2.35 10.36 1.91 9.95 1.49 9.41 0.78ZM12.06 4.23 14.29 5.06 15.27 5.53 15.66 5.53 15.81 5.39 16.07 5.71 16.43 6.31 17.41 6.93 17.65 7.17 17.80 7.91 18.01 8.30 19.05 9.22 19.52 9.55 19.85 9.73 19.85 10.05 19.70 10.47 19.46 10.68 18.63 10.11 17.98 9.79 17.29 9.55 16.52 9.49 15.95 9.61 15.66 9.73 15.00 9.70 14.65 9.52 14.26 9.13 14.08 8.69 14.11 8.06 14.02 7.91 13.81 7.79 13.49 7.76 13.25 7.82 13.01 8.03 12.89 8.24 12.83 8.51 11.88 8.77 10.84 9.28 10.04 9.81 9.09 10.68 8.28 11.75 7.78 12.70 7.57 13.20 7.30 14.16 7.18 14.84 7.15 16.18 7.33 17.31 7.54 17.96 7.87 18.67 8.55 19.71 9.18 20.37 9.80 20.84 9.68 20.87 9.38 20.81 8.52 20.49 7.69 19.95 6.83 19.06 6.41 18.44 6.17 17.96 5.85 17.04 5.61 15.73 5.61 14.33 5.70 13.62 5.85 13.03 5.85 12.85 5.76 12.70 5.49 12.58 5.28 12.61 4.86 12.91 4.42 13.35 4.39 13.26 4.81 12.10 5.40 11.00 5.96 10.26 6.71 9.49 7.75 8.69 8.79 8.12 10.10 7.64 11.05 7.47 11.20 7.38 11.32 7.20 11.29 6.96 11.08 6.75 9.80 6.49 9.21 6.43 8.08 6.43 7.15 6.54 6.71 6.66 6.59 6.63 7.21 6.22 8.08 5.80 8.73 5.56 9.59 5.36 10.36 5.27 11.32 5.27 12.06 5.36 12.65 5.50 12.92 5.47 13.01 5.41 13.10 5.27 13.10 5.06 13.01 4.91 12.00 4.26Z"/></svg></div>
     <div class="splash-word">Parapet</div>
     <div class="splash-bar"></div>
-    <div class="splash-sub">A spoiler-safe Empyrean companion</div>
+    <div class="splash-sub">Spoiler-safe reading companions</div>
   </div>
 </div>
 
 <div class="app">
   <aside class="side" aria-label="Your reading progress">
-    <div class="brand"><div><h1>Parapet</h1><p class="brand-sub">A spoiler-safe Empyrean companion</p></div>
+    <div class="brand"><button type="button" class="brandbtn" data-act="library" aria-label="Parapet. Open the library of guides"><h1>Parapet</h1><p class="brand-sub">The Empyrean guide</p></button>
       <div class="themesw" role="group" aria-label="Theme">
         <button type="button" data-theme-set="light" aria-label="Light theme" title="Light"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></svg></button>
         <button type="button" data-theme-set="dark" aria-label="Dark theme" title="Dark"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
@@ -513,6 +635,7 @@ try{if(sessionStorage.getItem('parapet.splash'))document.documentElement.classLi
       <div class="place-foot"><span class="meta" id="railMeta"></span><button class="btn sm" id="changePlace">Update progress</button></div>
     </section>
     <nav class="nav" id="tabs" aria-label="Sections"></nav>
+    <div class="side-links" id="sideLinks"></div>
   </aside>
 
   <main>
@@ -526,6 +649,8 @@ try{if(sessionStorage.getItem('parapet.splash'))document.documentElement.classLi
     </footer>
   </main>
 </div>
+
+<div class="home" id="home" hidden><div class="home-in" id="homeIn"></div></div>
 
 <div class="overlay" id="progressSheet" hidden role="dialog" aria-modal="true" aria-labelledby="psTitle"><div class="panel" id="psPanel"></div></div>
 <div class="overlay" id="detail" hidden role="dialog" aria-modal="true" aria-labelledby="dTitle"><div class="panel" id="dPanel"></div></div>
@@ -2293,7 +2418,8 @@ function renderTabs(){
 function renderMore(){
   const counts=tabCounts();
   $('#mPanel').innerHTML=`<div class="panel-h"><h3 id="mTitle">More</h3><button class="x" data-close aria-label="Close">${ico('x')}</button></div>
-   <div class="morelist">${TABS.filter(([k])=>!PRIMARY.includes(k)).map(([k,l])=>`<button data-tab="${k}"${S.tab===k?' aria-current="page"':''}>${ico(k)}<span>${l}</span>${counts[k]!=null?`<span class="n">${counts[k]}</span>`:''}</button>`).join('')}</div>`;
+   <div class="morelist">${TABS.filter(([k])=>!PRIMARY.includes(k)).map(([k,l])=>`<button data-tab="${k}"${S.tab===k?' aria-current="page"':''}>${ico(k)}<span>${l}</span>${counts[k]!=null?`<span class="n">${counts[k]}</span>`:''}</button>`).join('')}
+    <div class="sep"></div><button data-act="library">${ico('library')}<span>Library</span><span class="n">All guides</span></button><button data-act="series" data-id="empyrean">${ico('info')}<span>About the series</span></button></div>`;
 }
 
 /* ---------- VIEWS ---------- */
@@ -2604,7 +2730,8 @@ document.addEventListener('click',ev=>{
   else if(el.dataset.peekYes){S.peeked.add(el.dataset.peekYes);pendingPeek=null;refresh()}
   else if('peekNo' in el.dataset){pendingPeek=null;openDetail($('#detail').dataset.id)}
   else{const a=el.dataset.act;
-    if(a==='filters'){renderFilters();$('#filterSheet').hidden=false}
+    if(homeAct(a,el)){}
+    else if(a==='filters'){renderFilters();$('#filterSheet').hidden=false}
     else if(a==='books'){sheetView='books';renderSheet()}
     else if(a==='td'){if($('#progressSheet').hidden){draft=S.pos;sheetBook=bookOf(S.pos).id;showNames=false}$('#detail').hidden=true;$('#moreSheet').hidden=true;sheetView='td';renderSheet();$('#progressSheet').hidden=false}
     else if(a==='td-all')setTd(STORIES.map(x=>x.n));
@@ -2621,7 +2748,7 @@ document.addEventListener('change',ev=>{
   else if(ev.target.id==='tHints'){S.hints=ev.target.checked;store.set('hints',S.hints);refresh()}
 });
 document.addEventListener('keydown',ev=>{
-  if(ev.key==='Escape')closeAll();
+  if(ev.key==='Escape'){const open=['#detail','#progressSheet','#moreSheet','#filterSheet'].some(q=>!$(q).hidden);if(!open&&HOME&&HOME.v!=='onboard')enterGuide(true);closeAll()}
   if((ev.key==='Enter'||ev.key===' ')&&ev.target.matches('.g-hit')){ev.preventDefault();openDetail(ev.target.dataset.open)}
 });
 $('#progressChip').addEventListener('click',()=>openSheet());
@@ -2641,6 +2768,182 @@ document.addEventListener('click',ev=>{const b=ev.target.closest&&ev.target.clos
 try{darkQ&&darkQ.addEventListener('change',()=>{if(!S.theme)applyTheme(null)})}catch(e){}
 applyTheme(store.get('theme',null));
 
+/* ---------- LIBRARY, SERIES PAGES AND FIRST RUN ----------
+   Parapet is the platform; each series is a guide inside it. One guide is written so far (the Empyrean);
+   the others are announced as coming soon. All copy here is original and stays at back-of-the-book level:
+   nothing past a series' opening premise. Covers are our own typography, never the publishers' art. */
+const GUIDES=[
+ {id:'empyrean',live:true,name:'The Empyrean',author:'Rebecca Yarros',first:'Fourth Wing',count:'3 of 5 books out',
+  hook:'A war college where the dragons do the choosing.',
+  pitch:["Violet Sorrengail is twenty, small, easily hurt and raised for a quiet life among books. Her mother, the general in command, has other plans: the Riders Quadrant, where cadets either bond a dragon or die trying.",
+   "Nearly everyone in her year is stronger than she is. Some would like her gone before the first week is over, and the most dangerous of them has a personal reason.",
+   "It begins as a survival story and keeps widening, into rivalries, a slow-burning romance and a kingdom at war on its borders."],
+  vibes:['Dragon riders','War college','Enemies to lovers','Found family','Deadly trials','Slow-burn romance'],
+  why:[['Dragons with opinions','They choose their riders, and they are not polite about it.'],
+   ['Stakes from page one','The first death comes in chapter one, and the book never lets you forget it.'],
+   ['A rivalry that changes shape','Two people with every reason to hate each other, forced into the same squad rooms.'],
+   ['A cast big enough to need a guide','Squads, dragons, signets and houses pile up fast. That is what Parapet is for.']],
+  order:[['Fourth Wing','Start here'],['Iron Flame',''],['Onyx Storm','']],
+  extra:[['Threshing Day','Companion stories. Parapet tells you which ones are safe to read at your chapter.']],
+  note:'Written for adults: battlefield violence and explicit romance.'},
+ {id:'hp',name:'Harry Potter',author:'J.K. Rowling',count:'7 books',
+  hook:"On his eleventh birthday, an orphan learns he's a wizard, and that the school waiting for him keeps secrets older than he is.",
+  vibes:['Boarding school','Found family','Slow-building mystery']},
+ {id:'acotar',name:'A Court of Thorns and Roses',author:'Sarah J. Maas',count:'5 books so far',
+  hook:'A huntress kills a wolf in the winter woods, and is taken across the wall into the faerie lands to answer for it.',
+  vibes:['Fae courts','Romance','Old curses']},
+ {id:'asoiaf',name:'A Song of Ice and Fire',author:'George R.R. Martin',count:'5 of 7 books out',
+  hook:'Noble houses scheme for one throne while something older stirs beyond a wall of ice.',
+  vibes:['Political intrigue','Many narrators','Huge cast']},
+ {id:'lotr',name:'The Lord of the Rings',author:'J.R.R. Tolkien',count:'3 volumes',
+  hook:'A quiet hobbit inherits a ring that the darkest power in the world wants back.',
+  vibes:['Epic quest','Deep lore','Fellowship']},
+ {id:'tog',name:'Throne of Glass',author:'Sarah J. Maas',count:'8 books',
+  hook:"An assassin is pulled out of a salt mine to compete for the post of the king's champion.",
+  vibes:['Assassins','Tournament','Hidden magic']}
+];
+IC.back=IC.chev;
+IC.library='<path d="M5 4v16M9.5 4v16M14 5.5l4.5 14"/><path d="M3 20h18"/>';
+IC.info='<circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.5"/>';
+const guideOf=id=>GUIDES.find(g=>g.id===id);
+const started=()=>store.get('pos',null)!=null;
+const cover=(g,sm)=>`<span class="cover c-${g.id}${sm?' sm':''}" aria-hidden="true"><span class="cv-in">${g.id==='empyrean'?`<svg viewBox="0 0 24 24">${IC.dragons}</svg>`:''}<span class="cv-t">${esc(g.name)}</span>${g.id==='empyrean'?'':'<span class="cv-r"></span>'}</span></span>`;
+const themeSw=()=>{const t=document.querySelector('.brand .themesw');return t?`<div class="themesw" role="group" aria-label="Theme">${t.innerHTML}</div>`:''};
+const homeFoot=()=>`<footer class="wide" style="margin-top:8px">Parapet is an unofficial fan project and is not affiliated with any author or publisher named here. Every summary is original writing; no book text or official art is reproduced. A design portfolio project.</footer>`;
+
+let HOME=null;   /* null = the guide is showing; otherwise {v:'onboard'|'library'|'series', ...} */
+function showHome(state,push){
+  HOME=state;const el=$('#home');
+  if(!state){el.hidden=true;document.body.classList.remove('home-open');return}
+  closeAll();el.hidden=false;document.body.classList.add('home-open');
+  $('#homeIn').className='home-in'+(state.v==='onboard'?' narrow':'');
+  $('#homeIn').innerHTML=state.v==='onboard'?onboardView():state.v==='series'?seriesView(guideOf(state.id)):libraryView();
+  applyTheme(S.theme);
+  if(push){el.scrollTop=0;try{history.pushState({home:state.v==='series'?{v:'series',id:state.id}:{v:state.v}},'')}catch(e){}
+    const h=$('#homeIn h2');if(h){h.tabIndex=-1;try{h.focus({preventScroll:true})}catch(e){}}}
+}
+function enterGuide(push){showHome(null);renderRail();renderView();scrollTo(0,0);if(push)try{history.pushState({home:null},'')}catch(e){}}
+try{addEventListener('popstate',ev=>{if(HOME&&HOME.v==='onboard')return;const h=ev.state&&ev.state.home;if(h)showHome(h);else showHome(null)})}catch(e){}
+
+/* ----- library ----- */
+function libraryView(){
+  const g=GUIDES[0],soon=GUIDES.filter(x=>!x.live),t=totalsAt(S.pos),all=totalsAt(MAX),go=started();
+  return `<div class="home-bar"><div><h1>Parapet</h1><p class="hb-sub">Spoiler-safe reading companions</p></div>${themeSw()}</div>
+  <div><h2 class="h-display"><span class="nw">Look anything up.</span> <span class="nw">Spoil nothing.</span></h2>
+   <p class="h-lede" style="margin-top:10px">Guides to long fantasy series that only show what you've already read. Tell a guide your chapter, and everything past it stays sealed.</p></div>
+  <section><div class="h-sec"><h3>${go?'Reading now':'Ready to read'}</h3><span class="pill live">Guide ready</span></div>
+   <div class="nowcard"><button class="brandbtn" data-act="series" data-id="${g.id}" aria-label="About ${esc(g.name)}">${cover(g)}</button>
+    <div class="now-t"><span class="eyebrow">${esc(g.author)} · ${esc(g.count)}</span><h4>${esc(g.name)}</h4>
+     ${go?`<p class="muted">You're at ${esc(chName(S.pos))}. <b style="color:var(--ink)">${fmt(t.facts)}</b> of ${fmt(all.facts)} entries open.</p><div class="now-bar" aria-hidden="true"><i style="width:${Math.max(2,Math.round(S.pos/MAX*100))}%"></i></div>`
+       :`<p>${esc(g.hook)}</p>`}
+     <div class="now-act">${go?`<button class="btn" data-act="guide">Continue reading</button>`:`<button class="btn" data-act="begin">Set my place</button>`}<button class="btn ghost" data-act="series" data-id="${g.id}">About the series</button></div></div></div></section>
+  <section><div class="h-sec"><h3>Coming soon</h3><span class="count">${soon.length} guides planned</span></div>
+   <div class="shelf">${soon.map(x=>`<button class="scard" data-act="series" data-id="${x.id}">${cover(x)}<strong>${esc(x.name)}</strong><small>${esc(x.author)} · ${esc(x.count)}</small><span class="pill">Coming soon</span></button>`).join('')}</div>
+   <p class="note" style="margin-top:12px">Each guide is written chapter by chapter from the books, so new ones take time.</p></section>
+  ${homeFoot()}`;
+}
+
+/* ----- a series page: the pitch, and the way in ----- */
+function seriesView(g){
+  const go=started(),bar=`<div class="home-bar wide"><button class="backbtn" data-act="library">${ico('back')}Library</button>${themeSw()}</div>`;
+  const hero=`<div class="sp-hero wide">${cover(g)}<div style="display:grid;gap:8px"><span class="pill${g.live?' live':''}">${g.live?'Guide ready':'Coming soon'}</span><h2 class="h-display">${esc(g.name)}</h2><p class="meta">${esc(g.author)} · ${esc(g.count)}</p></div></div>`;
+  if(!g.live)return `<div class="sp">${bar}${hero}
+   <div style="display:grid;gap:16px"><p class="h-lede" style="font-family:var(--f-display);font-size:1.5rem;line-height:1.2">${esc(g.hook)}</p><div class="vibes">${g.vibes.map(v=>`<span>${esc(v)}</span>`).join('')}</div></div>
+   <div class="infobox"><b>The guide isn't written yet</b><p class="note">When it's ready it will work like every Parapet guide: characters, places and powers, each sealed until the chapter that reveals it.</p><button class="btn ghost" data-act="library">Back to the library</button></div>
+   ${homeFoot()}</div>`;
+  const cta=go?`<button class="btn seal" data-act="guide">Continue at ${esc(bookOf(S.pos).abbr)} ${esc(chLabel(S.pos).toLowerCase())}</button><button class="btn ghost" data-act="progress">Change my place</button>`
+    :`<button class="btn seal" data-act="begin">Set my place</button><button class="btn ghost" data-act="start1">I'm starting chapter 1</button>`;
+  return `<div class="sp">${bar}${hero}
+   <div style="display:grid;gap:18px">
+    <p class="h-lede" style="font-family:var(--f-display);font-size:clamp(1.4rem,4.6vw,1.8rem);line-height:1.2">${esc(g.hook)}</p>
+    ${g.pitch.map(p=>`<p class="h-lede">${esc(p)}</p>`).join('')}
+    <div class="vibes">${g.vibes.map(v=>`<span>${esc(v)}</span>`).join('')}</div>
+    <div class="now-act">${cta}</div>
+    <div><div class="h-sec" style="margin-top:8px"><h3>Why readers fall for it</h3></div>
+     <ol class="why">${g.why.map(([a,b],i)=>`<li><span class="n">${i+1}</span><div><b>${esc(a)}</b><span>${esc(b)}</span></div></li>`).join('')}</ol></div>
+   </div>
+   <div style="display:grid;gap:12px">
+    <div class="infobox"><b>Reading order</b><ol class="order">${g.order.map(([n,s])=>`<li><span>${esc(n)}${s?` <span class="muted">· ${esc(s)}</span>`:''}</span></li>`).join('')}${g.extra.map(([n,s])=>`<li class="xt"><span>${esc(n)} <span class="muted">· ${esc(s)}</span></span></li>`).join('')}</ol>
+     <p class="note">Two more novels are planned.</p></div>
+    <div class="infobox"><b>How Parapet helps while you read</b><dl><div><dt>Set your chapter</dt><dd>The guide opens up to that point and no further.</dd></div><div><dt>Look people up</dt><dd>Forgot who someone is? Their page shows only what you've read about them.</dd></div><div><dt>Peek only if you choose</dt><dd>Sealed entries stay shut unless you tap one and confirm.</dd></div></dl></div>
+    <p class="note">${esc(g.note)} This page gives away nothing past the opening premise.</p>
+   </div>
+   ${homeFoot()}</div>`;
+}
+
+/* ----- first run: what it is, pick a series, the pitch, where are you ----- */
+const OB={step:0,ch:1,just:0,peek:null,where:null,book:BOOKS[0].id,at:null,timer:null};
+const DEMO=[[1,'codex','A character'],[3,'places','A place'],[6,'signets','A power'],[9,'bonds','A bond between two people']];
+function demoHtml(){
+  return `<div class="demo" aria-label="A demonstration of how entries unseal as you read"><div class="demo-h"><span>You've read to <b>chapter ${OB.ch}</b></span>
+    <span class="stepper"><button data-act="demo-" aria-label="One chapter back" ${OB.ch<=1?'disabled':''}>−</button><button data-act="demo+" aria-label="One chapter on" ${OB.ch>=10?'disabled':''}>+</button></span></div>
+   ${DEMO.map(([c,ic,l])=>c<=OB.ch?`<div class="drow${OB.just===c?' just':''}"><span class="dav">${ico(ic)}</span><span class="dt"><b>${l}</b><span class="bars"><i></i><i></i></span></span><span class="dc">CH ${c}</span></div>`
+     :`<div class="drow shut"><span class="dav">${ico('lock')}</span><span class="dt"><b>Sealed until chapter ${c}</b></span><span class="dc">CH ${c}</span></div>`).join('')}</div>`;
+}
+function obBody(){
+  const g=GUIDES[0];
+  if(OB.step===0)return `<span class="eyebrow">Welcome to Parapet</span><h2 class="h-display"><span class="nw">Look anything up.</span> <span class="nw">Spoil nothing.</span></h2>
+   <p class="h-lede">Parapet is a reading companion for long fantasy series. Tell it the chapter you're on, and it shows you who's who, what they can do and where everything is, using only what you've already read.</p>
+   ${demoHtml()}<p class="note">Try it: move the chapter and watch what opens.</p>`;
+  if(OB.step===1){const pk=OB.peek&&guideOf(OB.peek);
+   return `<span class="eyebrow">Step 2 of 4</span><h2 class="h-display">What are you reading?</h2>
+   <div class="pick"><button class="opt sr" role="radio" aria-checked="true" data-act="ob-next">${cover(g,1)}<span><b>${esc(g.name)}</b><small>${esc(g.author)} · starts with ${esc(g.first)}</small><br><span class="pill live" style="margin-top:6px">Guide ready</span></span></button>
+</div>
+   <div class="h-sec" style="margin:6px 0 0"><span class="eyebrow">Coming soon</span></div>
+   <div class="pick two">${GUIDES.filter(x=>!x.live).map(x=>`<button class="opt sr tba" data-act="ob-peek" data-id="${x.id}" aria-pressed="${OB.peek===x.id}">${cover(x,1)}<span><b>${esc(x.name)}</b><small>${esc(x.author)}</small></span></button>`).join('')}</div>
+   <p class="note" role="status">${pk?`${esc(pk.hook)} The guide isn't written yet; it's on the list.`:'One guide is ready today. Tap a coming one for a taste of it.'}</p>`}
+  if(OB.step===2)return `<span class="eyebrow">${esc(g.name)} · ${esc(g.author)}</span><h2 class="h-display">${esc(g.hook)}</h2>
+   ${g.pitch.map(p=>`<p class="h-lede">${esc(p)}</p>`).join('')}
+   <div class="vibes">${g.vibes.map(v=>`<span>${esc(v)}</span>`).join('')}</div>
+   <ol class="why">${g.why.slice(0,3).map(([a,b],i)=>`<li><span class="n">${i+1}</span><div><b>${esc(a)}</b><span>${esc(b)}</span></div></li>`).join('')}</ol>
+   <p class="note">${esc(g.note)} Nothing here goes past the opening premise.</p>`;
+  const bk=BOOKS.find(b=>b.id===OB.book),opts=[];for(let n=bk.start;n<=bk.end;n++)opts.push(`<option value="${n}" ${OB.at===n?'selected':''}>${chLabel(n)}</option>`);
+  const o=(k,t,s)=>`<button class="opt" role="radio" aria-checked="${OB.where===k}" data-act="ob-where" data-id="${k}"><span class="rd"></span><span><b>${t}</b><small>${s}</small></span></button>`;
+  return `<span class="eyebrow">Step 4 of 4</span><h2 class="h-display">Where are you in the series?</h2>
+   <div class="pick" role="radiogroup" aria-label="Where are you in the series?">
+    ${o('new',"I haven't started yet","The guide opens at chapter 1 of Fourth Wing, with only the opening cast.")}
+    ${o('mid',"I'm reading it","Pick the last chapter you finished.")}
+    ${OB.where==='mid'?`<div class="where-sub"><label>Book</label><div class="bookseg">${BOOKS.map(b=>`<button data-act="ob-book" data-id="${b.id}" aria-pressed="${b.id===OB.book}">${esc(b.name)}</button>`).join('')}</div>
+      <label for="obCh">Last chapter you finished</label><select id="obCh">${opts.join('')}</select></div>`:''}
+    ${o('all',"I've read everything so far",`All ${BOOKS.length} novels. Nothing is sealed.`)}</div>
+   <p class="note">You can change this any time from Update progress.</p>`;
+}
+function onboardView(){
+  const last=OB.step===3;
+  return `<div class="ob"><div class="ob-top"><span class="ob-dots" aria-hidden="true">${[0,1,2,3].map(i=>`<i class="${i<=OB.step?'on':''}"></i>`).join('')}</span><button class="textbtn" data-act="ob-skip">Skip</button></div>
+   <div class="ob-body">${obBody()}</div>
+   <div class="ob-foot">${OB.step?`<button class="btn ghost" data-act="ob-back">Back</button>`:''}<button class="btn${last?' seal':''}" data-act="${last?'ob-done':'ob-next'}" ${last&&!OB.where?'disabled':''}>${OB.step===0?'Get started':OB.step===2?"I'm in":last?'Open the guide':'Continue'}</button></div></div>`;
+}
+function obRender(focus){$('#homeIn').innerHTML=onboardView();if(focus){$('#home').scrollTop=0;const h=$('#homeIn h2');if(h){h.tabIndex=-1;try{h.focus({preventScroll:true})}catch(e){}}}}
+/* the demo plays once by itself: chapter 1, then 3, then 6. It waits for the splash to clear first */
+function obDemoPlay(){clearInterval(OB.timer);const seq=[3,6];let i=0;const go=()=>{OB.timer=setInterval(()=>{if(!HOME||HOME.v!=='onboard'||OB.step!==0||i>=seq.length){clearInterval(OB.timer);return}OB.just=OB.ch=seq[i++];obRender()},1300)};
+  const sp=document.getElementById('splash');const shown=sp&&!document.documentElement.classList.contains('no-splash');setTimeout(go,shown?1500:300)}
+function obFinish(skip){
+  clearInterval(OB.timer);store.set('seen',true);
+  if(!skip&&OB.where==='mid'){const el=$('#obCh');S.pos=el?+el.value:(OB.at||BOOKS.find(b=>b.id===OB.book).start);store.set('pos',chCode(S.pos))}
+  else if(!skip&&OB.where==='all'){S.pos=MAX;store.set('pos',chCode(S.pos))}
+  else S.pos=DEFAULT_POS;
+  S.peeked.clear();enterGuide();
+  toast(skip?'Showing Fourth Wing, chapter 1. Update your progress any time.':S.pos===MAX?'Everything is open.':`Unlocked through ${chName(S.pos)}.`);
+}
+function homeAct(a,el){
+  if(a==='library'){showHome({v:'library'},true);return true}
+  if(a==='series'){showHome({v:'series',id:el.dataset.id||'empyrean'},true);return true}
+  if(a==='guide'){enterGuide(true);return true}
+  if(a==='progress'||a==='begin'){enterGuide(true);openSheet();return true}
+  if(a==='start1'){S.pos=DEFAULT_POS;store.set('pos',chCode(S.pos));S.peeked.clear();enterGuide(true);toast('Showing Fourth Wing, chapter 1.');return true}
+  if(a==='demo+'||a==='demo-'){clearInterval(OB.timer);const before=OB.ch;OB.ch=Math.max(1,Math.min(10,OB.ch+(a==='demo+'?1:-1)));OB.just=DEMO.some(d=>d[0]===OB.ch)&&OB.ch>before?OB.ch:0;obRender();const b=$(`[data-act="${a}"]`);if(b&&!b.disabled)b.focus();return true}
+  if(a==='ob-next'){clearInterval(OB.timer);OB.step=Math.min(3,OB.step+1);OB.peek=null;obRender(true);return true}
+  if(a==='ob-back'){OB.step=Math.max(0,OB.step-1);obRender(true);return true}
+  if(a==='ob-peek'){OB.peek=el.dataset.id;obRender();return true}
+  if(a==='ob-where'){const el2=$('#obCh');if(el2)OB.at=+el2.value;OB.where=el.dataset.id;obRender();const b=$(`[data-act="ob-where"][data-id="${OB.where}"]`);if(b)b.focus();return true}
+  if(a==='ob-book'){OB.book=el.dataset.id;OB.at=null;obRender();const b=$(`[data-act="ob-book"][data-id="${OB.book}"]`);if(b)b.focus();return true}
+  if(a==='ob-done'){if(OB.where)obFinish(false);return true}
+  if(a==='ob-skip'){obFinish(true);return true}
+  return false;
+}
+function renderSideLinks(){const el=$('#sideLinks');if(el)el.innerHTML=`<button data-act="library">${ico('library')}Library</button><button data-act="series" data-id="empyrean">${ico('info')}About the series</button>`}
+
 /* splash: drop it from the page once it has faded; a tap skips it */
 try{const sp=$('#splash');if(sp){const done=()=>{if(sp.parentNode)sp.remove()};
   sp.addEventListener('animationend',e=>{if(e.target===sp)done()});sp.addEventListener('click',()=>{sp.classList.add('gone')});setTimeout(done,3000)}}catch(e){}
@@ -2648,7 +2951,10 @@ try{const sp=$('#splash');if(sp){const done=()=>{if(sp.parentNode)sp.remove()};
 /* ---------- BOOT ---------- */
 const h=(location.hash||'').slice(1);if(TABS.some(t=>t[0]===h))S.tab=h;else if(h==='editor')S.editor=true;
 if(!(S.pos>=1&&S.pos<=MAX))S.pos=DEFAULT_POS;
-renderRail();renderView();
+renderRail();renderView();renderSideLinks();
+/* first visit: the welcome flow. Returning readers go straight back to their guide */
+if(!S.editor&&!store.get('seen',false)&&!started()){showHome({v:'onboard'});obDemoPlay()}
+else if(h==='library')showHome({v:'library'});
 </script>
 
 </body>

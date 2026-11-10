@@ -1,7 +1,7 @@
 {
  "name": "Parapet",
  "short_name": "Parapet",
- "description": "A spoiler-safe companion to the Empyrean series.",
+ "description": "Spoiler-safe reading companions for long fantasy series.",
  "start_url": "/",
  "scope": "/",
  "display": "standalone",
