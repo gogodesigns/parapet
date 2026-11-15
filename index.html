@@ -323,6 +323,58 @@ button.num:hover{border-color:var(--ink);color:var(--ink)}
 .morelist button[aria-current="page"]{border-color:var(--seal);color:var(--seal)}
 
 /* timeline */
+/* scene vignettes: self-contained pictures, each with its own time-of-day palette */
+.sc{display:block;width:100%;height:100%}
+.sc .k1{fill:var(--s1)}.sc .k2{fill:var(--s2)}.sc .f1{fill:var(--g1)}.sc .f2{fill:var(--g2)}.sc .f3{fill:var(--g3)}.sc .lt{fill:var(--lt)}.sc .ac{fill:var(--ac)}
+.p-night{--s1:#0F1630;--s2:#34407A;--g1:#222C57;--g2:#161D3D;--g3:#0A0E20;--lt:#F4D58A;--ac:#8FA3FF}
+.p-dusk{--s1:#3B2B5C;--s2:#E08A5B;--g1:#6A4470;--g2:#3F2A4D;--g3:#1E1630;--lt:#FFD9A0;--ac:#FFB07A}
+.p-day{--s1:#6FA9DC;--s2:#DDEBF2;--g1:#8FB59A;--g2:#5B8B71;--g3:#2B5243;--lt:#FFF4C2;--ac:#D9622B}
+.p-snow{--s1:#7F97B8;--s2:#E9EEF5;--g1:#D6DEEA;--g2:#93A5BF;--g3:#46566F;--lt:#FFE9A8;--ac:#B33A4A}
+.p-storm{--s1:#1B262E;--s2:#52646F;--g1:#3A4A55;--g2:#25313A;--g3:#11181D;--lt:#E6F0F5;--ac:#9FD0FF}
+.p-ember{--s1:#240C11;--s2:#B23A2A;--g1:#6A2420;--g2:#3B141B;--g3:#1A090C;--lt:#FFC857;--ac:#FF7A3D}
+.bookgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.tile{display:grid;grid-template-rows:auto 1fr;text-align:left;padding:0;border:1px solid var(--rule-soft);border-radius:var(--r);background:var(--sheet);color:var(--ink);font:inherit;cursor:pointer;overflow:hidden}
+.tile .plate{aspect-ratio:4/3;display:block}
+.tile-t{display:grid;gap:3px;padding:10px 12px 12px;align-content:start;justify-items:start}
+.tile-t b{font-size:1rem;line-height:1.2}
+.tile-t small{color:var(--muted);font-size:.84rem}
+.tile-t .pill{margin-top:5px}
+.tile[aria-checked="true"]{border-color:var(--seal);box-shadow:0 0 0 1px var(--seal)}
+.tile.tba .plate{opacity:.55;filter:saturate(.6)}
+.tile.tba[aria-pressed="true"]{border-color:var(--ink)}
+.tile.tba[aria-pressed="true"] .plate{opacity:.9;filter:none}
+@media (min-width:640px){.bookgrid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.ob-art{aspect-ratio:21/9;border-radius:var(--r);overflow:hidden;border:1px solid var(--rule-soft)}
+.thumb{display:block;flex:none;width:76px;aspect-ratio:4/3;border-radius:10px;overflow:hidden}
+.pick.two .thumb{width:56px}
+.pitchcard{display:grid;background:var(--sheet);border:1px solid var(--rule-soft);border-radius:var(--r);overflow:hidden}
+.pitchcard .plate{aspect-ratio:21/9}
+.pitchcard p{padding:14px 16px 16px;line-height:1.5}
+@media (min-width:640px){.pitchcard{grid-template-columns:220px 1fr;align-items:stretch}.pitchcard .plate{aspect-ratio:auto;min-height:132px}.pitchcard p{align-self:center}}
+.reel-books{display:flex;gap:8px;flex-wrap:wrap;margin:0 0 16px}
+.reel-books button{display:inline-flex;align-items:center;gap:6px;min-height:40px;padding:0 14px;border-radius:999px;border:1px solid var(--rule);background:transparent;color:var(--ink);font:inherit;font-size:.92rem;cursor:pointer}
+.reel-books button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.reel-books svg{width:14px;height:14px;opacity:.7}
+.reel{background:var(--sheet);border:1px solid var(--rule-soft);border-radius:calc(var(--r) + 4px);overflow:hidden;display:grid}
+.reel.now{border-color:var(--seal)}
+.plate{aspect-ratio:16/9;background:var(--rule-soft);overflow:hidden}
+.plate.shut{display:grid;place-items:center;background:repeating-linear-gradient(135deg,var(--rule-soft) 0 14px,transparent 14px 28px)}
+.plate-lock{display:grid;justify-items:center;gap:8px;color:var(--muted);font-size:.95rem;text-align:center;padding:16px}
+.plate-lock svg{width:28px;height:28px}
+.reel-body{padding:18px 18px 20px;display:grid;gap:8px;align-content:start}
+.reel-body h3{font-family:var(--f-display);font-weight:400;font-size:clamp(1.5rem,5vw,2rem);line-height:1.1;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+.reel-body p{max-width:62ch}
+.reel-nav{display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:10px;margin-top:14px}
+.reel-nav .btn{min-height:44px;white-space:nowrap}
+.reel-dots{display:flex;justify-content:center;gap:2px;flex-wrap:wrap}
+.reel-dots button{width:28px;height:44px;border:0;background:transparent;padding:0;cursor:pointer;position:relative}
+.reel-dots button::after{content:"";position:absolute;left:50%;top:50%;width:10px;height:10px;margin:-5px;border-radius:50%;background:var(--ink)}
+.reel-dots button.part::after{background:var(--seal)}
+.reel-dots button.shut::after{background:transparent;box-shadow:inset 0 0 0 2px var(--rule)}
+.reel-dots button[aria-current="true"]::after{width:22px;margin-left:-11px;border-radius:5px}
+@media (min-width:1100px){.reel{grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);align-items:stretch}.reel .plate{aspect-ratio:auto;min-height:340px}.reel-body{padding:28px;align-content:center}}
+@media (max-width:959px){.reel-books{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -16px 14px;padding:0 16px}.reel-books::-webkit-scrollbar{display:none}.reel-books button{flex:none}}
+@media (max-width:520px){.reel-nav{grid-template-columns:1fr 1fr}.reel-dots{grid-column:1/-1;grid-row:1}.reel-nav>span{display:block}}
 .tl-book{display:flex;align-items:baseline;gap:10px;margin:28px 0 14px}
 .tl-book:first-of-type{margin-top:0}
 .tl-book h3{font-family:var(--f-display);font-weight:400;font-size:1.45rem}
@@ -5712,6 +5764,66 @@ function totalsAt(b){return{ent:E.filter(e=>visibleAt(e,b)).length,facts:E.reduc
 function storyCounts(n){let open=0,later=0;const add=f=>{if(f.td===n){if(f.at<=S.pos)open++;else later++}};
   for(const e of E)e.facts.forEach(add);for(const g of GLOSS)g.d.forEach(add);return {open,later}}
 
+/* ---------- SCENE VIGNETTES ----------
+   Original drawings, built from flat shapes: places and weather only, never a character from any book and
+   never a copy of published art. Each story part names a scene and a time of day ('castle:night'). */
+const SCENES=(()=>{
+  let uid=0;
+  const base=()=>{const id='sg'+(++uid);return `<defs><linearGradient id="${id}" x1="0" y1="0" x2="0" y2="1"><stop offset=".15" style="stop-color:var(--s2);stop-opacity:0"/><stop offset="1" style="stop-color:var(--s2);stop-opacity:1"/></linearGradient></defs><rect class="k1" width="320" height="180"/><rect width="320" height="150" fill="url(#${id})"/>`};
+  const stars=(...p)=>p.map(([x,y,r])=>`<circle class="lt" cx="${x}" cy="${y}" r="${r||1}" opacity=".75"/>`).join('');
+  const sky=stars([24,22],[58,48,.8],[96,18,1.2],[132,40,.8],[188,24],[214,56,.8],[286,20,1.2],[302,62,.8],[70,76,.7],[160,12,.8]);
+  const orb=(x,y,r)=>`<circle class="lt" cx="${x}" cy="${y}" r="${r*2.3}" opacity=".14"/><circle class="lt" cx="${x}" cy="${y}" r="${r}"/>`;
+  const glow=(x,y,r,c)=>`<circle class="${c||'lt'}" cx="${x}" cy="${y}" r="${r*3}" opacity=".18"/><circle class="${c||'lt'}" cx="${x}" cy="${y}" r="${r}"/>`;
+  const arch=(x,w,y,c,o)=>`<path class="${c}"${o?` opacity="${o}"`:''} d="M${x} 180V${y+w/2}a${w/2} ${w/2} 0 0 1 ${w} 0V180z"/>`;
+  const win=(c,...p)=>p.map(([x,y,w,h])=>`<rect class="${c}" x="${x}" y="${y}" width="${w||5}" height="${h||6}"/>`).join('');
+  const wing=(x,y,s,c)=>`<path class="${c||'f3'}" transform="translate(${x} ${y}) scale(${s||1})" d="M0 6q9-13 21-5 7-10 19-8-8 4-9 12 9 0 15 6-11-1-19 3-6 8-16 4-8 6-17 2 8-2 9-8-3-3-3-6z"/>`;
+  const S={
+   street:()=>base()+sky+orb(252,36,11)+`<path class="f1" d="M0 180V104l40-22 40 22 46-26 44 26 50-24 46 24 54-20V180z"/><path class="f2" d="M0 180V118l31-24 31 24 31-24 31 24 31-24 31 24 31-24 31 24 31-24 31 24 10-8V180z"/>`+win('lt',[22,128],[84,128],[146,128],[208,128,5,6],[270,128])+win('f3',[50,126,6,7],[112,126,6,7],[236,126,6,7])+`<rect class="f3" y="152" width="320" height="28"/><rect class="f3" x="267" y="98" width="3" height="56"/>`+glow(268.5,96,4.5),
+   sea:()=>base()+`<ellipse class="f1" cx="70" cy="36" rx="70" ry="16" opacity=".7"/><ellipse class="f1" cx="230" cy="26" rx="90" ry="18" opacity=".7"/><path class="ac" d="M262 8l-13 34h10l-13 34 26-44h-10z"/><path class="f2" d="M0 180v-44q20-9 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0v44z"/><path class="f3" d="M104 156l32-58 30-14 30 16 30 56z"/><rect class="f2" x="150" y="68" width="28" height="18"/><path class="f2" d="M145 69l19-13 19 13z"/><rect class="lt" x="160" y="74" width="6" height="6"/><path class="f3" d="M0 180v-22q20-8 40 0t40 0 40 0 40 0 40 0 40 0 40 0 40 0v22z"/>`,
+   train:()=>base()+orb(56,40,12)+`<path class="f1" d="M0 180v-58q70-44 150-14t170-12v84z"/><rect class="f2" y="114" width="320" height="9"/>`+[8,58,108,158,208,258,308].map(x=>`<rect class="f2" x="${x}" y="122" width="9" height="58"/>`).join('')+`<circle class="lt" cx="206" cy="80" r="7" opacity=".55"/><circle class="lt" cx="194" cy="67" r="10" opacity=".45"/><circle class="lt" cx="176" cy="56" r="13" opacity=".35"/><rect class="f3" x="56" y="99" width="42" height="15"/><rect class="f3" x="102" y="99" width="42" height="15"/><rect class="f3" x="148" y="99" width="42" height="15"/><rect class="f3" x="194" y="97" width="48" height="17"/><rect class="f3" x="228" y="88" width="15" height="26"/><rect class="f3" x="201" y="86" width="7" height="12"/><rect class="ac" x="56" y="109" width="187" height="2"/>`+win('lt',[62,102,6,5],[74,102,6,5],[86,102,6,5],[108,102,6,5],[120,102,6,5],[132,102,6,5],[154,102,6,5],[166,102,6,5],[178,102,6,5],[232,92,7,6])+`<path class="f3" d="M0 180v-18q80-26 170 0t150-12v30z"/>`,
+   castle:()=>base()+sky+orb(60,38,10)+`<path class="f1" d="M0 152q50-46 124 0z"/><rect class="f1" y="150" width="320" height="30"/><path class="f2" d="M116 180l26-74h112l52 74z"/><rect class="f3" x="146" y="88" width="98" height="20"/><rect class="f3" x="150" y="62" width="16" height="46"/><rect class="f3" x="176" y="46" width="22" height="62"/><rect class="f3" x="208" y="70" width="14" height="38"/><rect class="f3" x="228" y="58" width="13" height="50"/><path class="f3" d="M147 63l11-20 11 20zM173 47l14-26 14 26zM205 71l10-18 10 18zM225 59l9.500-18 9.500 18z"/>`+win('lt',[156,72,3,5],[184,58,4,6],[190,76,3,5],[213,80,3,5],[233,70,3,5],[166,94,3,5],[200,94,3,5],[222,94,3,5])+`<rect class="lt" x="176" y="154" width="24" height="1.500" opacity=".35"/><rect class="lt" x="168" y="161" width="40" height="1.500" opacity=".22"/><path class="f3" d="M0 180v-10q60-12 128 4v6z"/>`,
+   field:()=>base()+orb(250,36,12)+`<ellipse class="lt" cx="90" cy="44" rx="34" ry="8" opacity=".35"/><ellipse class="lt" cx="190" cy="28" rx="26" ry="6" opacity=".3"/><path class="f2" d="M0 156V92l78 18v46zM320 156V92l-78 18v46z"/><path class="f3" d="M0 100l78 16v6L0 108zM320 100l-78 16v6l78-14z"/>`+[[14,84],[44,90],[276,90],[306,84]].map(([x,y])=>`<rect class="f3" x="${x}" y="${y-22}" width="2" height="26"/><path class="ac" d="M${x+2} ${y-22}l14 5-14 5z"/>`).join('')+`<ellipse class="f1" cx="160" cy="164" rx="170" ry="30"/><ellipse cx="160" cy="164" rx="60" ry="9" fill="none" stroke="var(--lt)" stroke-opacity=".4" stroke-width="1.500"/>`+[[130,74],[160,60],[190,74]].map(([x,y])=>`<rect class="f3" x="${x-1}" y="${y}" width="2" height="${150-y}"/><circle cx="${x}" cy="${y-8}" r="8" fill="none" stroke="var(--g3)" stroke-width="2.500"/>`).join(''),
+   corridor:()=>`<rect class="f3" width="320" height="180"/>`+arch(26,268,6,'f2')+arch(74,172,36,'f1')+arch(112,96,64,'f2')+arch(138,44,92,'k2')+arch(150,20,112,'lt')+`<path class="f3" opacity=".55" d="M0 180l138-34h44l138 34z"/>`+glow(52,96,4,'ac')+glow(268,96,4,'ac')+glow(98,110,2.500,'ac')+glow(222,110,2.500,'ac'),
+   forest:()=>base()+orb(232,40,10)+`<path class="f1" d="M0 180v-64l16-34 16 34 14-40 16 40 14-30 16 30 16-44 16 44 14-28 14 28 16-40 16 40 14-32 16 32 16-42 14 42 16-30 14 30 14-36 12 30v70z"/>`+[[18,14],[64,10],[118,16],[176,9],[226,13],[282,11]].map(([x,w])=>`<rect class="f2" x="${x}" y="0" width="${w}" height="180"/>`).join('')+`<rect class="lt" y="96" width="320" height="50" opacity=".07"/>`+[[-6,26],[92,22],[196,28],[300,24]].map(([x,w])=>`<rect class="f3" x="${x}" y="0" width="${w}" height="180"/>`).join('')+`<rect class="f3" y="160" width="320" height="20"/>`+glow(150,122,1.500)+glow(160,122,1.500)+glow(252,134,1.300)+glow(60,140,1.300),
+   chamber:()=>`<rect class="f3" width="320" height="180"/>`+arch(96,128,22,'f2')+arch(124,72,58,'k2',.8)+[[26,20],[70,16],[234,16],[274,20]].map(([x,w])=>`<rect class="f2" x="${x}" y="14" width="${w}" height="146"/><rect class="f1" x="${x-3}" y="14" width="${w+6}" height="6"/><rect class="f1" x="${x-3}" y="150" width="${w+6}" height="6"/>`).join('')+`<rect class="f1" y="154" width="320" height="26"/><rect class="lt" x="130" y="160" width="60" height="1.500" opacity=".4"/><rect class="lt" x="110" y="168" width="100" height="1.500" opacity=".25"/>`+glow(160,118,7,'ac'),
+   hall:()=>`<rect class="f3" width="320" height="180"/>`+arch(34,40,26,'k2')+arch(104,40,26,'k2')+arch(176,40,26,'k2')+arch(246,40,26,'k2')+`<rect class="f1" y="122" width="320" height="58"/><path class="f2" d="M28 180l94-58h22l-44 58zM292 180l-94-58h-22l44 58z"/>`+stars([20,14],[88,10],[150,18],[236,8],[300,16])+[[60,60],[92,44],[128,66],[160,38],[192,62],[228,46],[262,64],[44,34],[280,36]].map(([x,y])=>`<rect class="lt" x="${x-1}" y="${y}" width="2" height="9" opacity=".8"/>`+glow(x,y-3,2)).join(''),
+   room:()=>`<rect class="f2" width="320" height="180"/><rect class="k1" x="196" y="26" width="92" height="84"/><rect class="k2" x="196" y="76" width="92" height="34" opacity=".7"/>`+orb(262,50,9)+`<path class="f3" d="M194 24h96v88h-96zm4 4v80h88V28zM240 26h4v84h-4zM196 66h92v4h-92z" fill-rule="evenodd"/><rect class="f3" x="20" y="34" width="150" height="5"/><rect class="f3" x="20" y="70" width="150" height="5"/>`+[[26,'f1',8],[36,'ac',6],[44,'f1',10],[56,'lt',5],[63,'f1',9],[74,'ac',7],[96,'f1',8],[106,'f1',6],[114,'lt',6],[122,'ac',9]].map(([x,c,w])=>`<rect class="${c}" x="${x}" y="16" width="${w}" height="18" opacity=".85"/><rect class="${c}" x="${x+20}" y="52" width="${w}" height="18" opacity=".7"/>`).join('')+`<rect class="f3" y="160" width="320" height="20"/><rect class="f3" x="18" y="126" width="190" height="9"/><rect class="f3" x="26" y="134" width="8" height="30"/><rect class="f3" x="192" y="134" width="8" height="30"/><rect class="ac" x="60" y="118" width="40" height="8"/><rect class="f1" x="66" y="111" width="34" height="7"/><rect class="lt" x="150" y="108" width="5" height="18"/>`+glow(152.500,103,3.500),
+   village:()=>base()+sky+`<path class="f1" d="M0 180v-70q80-40 170-10t150-16v96z"/><path class="f3" d="M246 150v-64l8-30 8 30v64z"/>`+[[18,104,44],[74,112,36],[122,98,50],[186,110,40]].map(([x,y,w])=>`<rect class="f2" x="${x}" y="${y}" width="${w}" height="${152-y}"/><path class="k2" d="M${x-5} ${y+1}l${w/2+5}-${w*.5} ${w/2+5} ${w*.5}z"/><rect class="lt" x="${x+7}" y="${y+12}" width="7" height="8"/><rect class="lt" x="${x+w-15}" y="${y+12}" width="7" height="8"/><rect class="f3" x="${x+w/2-4}" y="${y+26}" width="8" height="${126-y}"/>`).join('')+`<path class="f1" d="M0 180v-30q160-10 320 0v30z"/>`+stars([40,160,1.300],[110,168,1.300],[200,158,1.300],[280,170,1.300]),
+   tower:()=>base()+sky+orb(70,40,11)+`<path class="f2" d="M0 180v-46h142v46zM178 180v-36h142v36z"/>`+[0,24,48,72,96,120,190,214,238,262,286,310].map(x=>`<rect class="f2" x="${x}" y="${x<178?126:136}" width="12" height="9"/>`).join('')+`<rect class="f3" x="140" y="44" width="40" height="136"/><path class="f3" d="M134 46h52v-8h-8v-8h-8v8h-10v-8h-8v8h-10v-8h-8z"/><rect class="lt" x="156" y="70" width="8" height="13"/><rect class="lt" x="156" y="112" width="8" height="10" opacity=".5"/><rect class="f3" x="159" y="6" width="2" height="26"/><path class="ac" d="M161 6l18 6-18 6z"/>`,
+   lake:()=>base()+sky+orb(206,40,11)+`<path class="f2" d="M0 116V98q60-26 120-6t200-10v34z"/><rect class="f1" y="112" width="320" height="68"/><rect class="lt" x="192" y="118" width="28" height="2" opacity=".5"/><rect class="lt" x="184" y="128" width="44" height="2" opacity=".35"/><rect class="lt" x="176" y="140" width="60" height="2" opacity=".22"/><rect class="lt" x="60" y="134" width="40" height="1.500" opacity=".2"/><path class="f3" d="M0 180v-22q50-12 110 6l20 16z"/>`+[[14,112],[24,100],[34,116],[46,106],[58,120]].map(([x,y])=>`<path class="f3" d="M${x} 168q-2-${(168-y)/2} 3-${168-y} 0 ${(168-y)/2} 0 ${168-y}z"/>`).join(''),
+   manor:()=>base()+sky+orb(264,34,10)+`<path class="f2" d="M0 180v-40q160-46 320 0v40z"/><rect class="f3" x="96" y="94" width="128" height="32"/><rect class="f3" x="112" y="82" width="96" height="44"/><path class="f3" d="M106 84l54-24 54 24zM124 66h8v-14h-8zM188 66h8v-14h-8z"/>`+win('lt',[122,92,5,8],[150,92,5,8],[178,92,5,8],[102,104,4,7],[214,104,4,7])+win('k2',[136,92,5,8],[164,92,5,8],[192,92,5,8],[136,108,5,8],[178,108,5,8])+`<rect class="lt" x="156" y="108" width="8" height="18" opacity=".8"/><rect class="f3" y="132" width="320" height="3"/>`+Array.from({length:23},(_,i)=>`<rect class="f3" x="${6+i*14}" y="126" width="2" height="54"/>`).join('')+`<rect class="f3" x="140" y="118" width="7" height="62"/><rect class="f3" x="173" y="118" width="7" height="62"/>`,
+   mountain:()=>base()+orb(64,44,12)+`<path class="f1" d="M0 180v-44l52-66 36 40 52-62 58 70 50-40 72 54v48z"/><path class="lt" opacity=".55" d="M52 70l-14 18 14-6 12 8zM140 48l-16 20 16-7 16 9zM248 78l-12 10 12-4 12 6z"/><path class="f2" d="M0 180v-30l70-30 60 26 70-34 120 44v24z"/><path class="f3" d="M0 180v-12l90-18 110 18 120-14v26z"/>`+wing(196,34,1.150),
+   graveyard:()=>base()+sky+orb(70,40,11)+`<rect class="f2" x="204" y="86" width="64" height="66"/><path class="f2" d="M198 88l38-22 38 22zM226 70l8-40 8 40z"/><rect class="lt" x="230" y="100" width="8" height="16" opacity=".7"/><circle class="f3" cx="150" cy="96" r="26"/><circle class="f3" cx="130" cy="112" r="18"/><circle class="f3" cx="170" cy="114" r="18"/><rect class="f3" x="146" y="110" width="8" height="44"/><rect class="f3" y="150" width="320" height="30"/>`+[[24,132,16],[58,138,14],[96,134,16],[190,140,14],[282,134,16]].map(([x,y,w])=>`<path class="f1" d="M${x} 156V${y+w/2}a${w/2} ${w/2} 0 0 1 ${w} 0V156z"/>`).join('')+`<rect class="lt" y="140" width="320" height="24" opacity=".08"/>`,
+   city:()=>base()+sky+`<path class="f1" d="M0 180V96h22V72h26v30h20V60h30v44h18V84h24v96zM200 180V78h26v24h18V58h28v40h20V80h28v100z"/><rect class="f2" x="84" y="100" width="152" height="54"/><path class="f2" d="M76 102l84-34 84 34z"/>`+[98,120,142,170,192,214].map(x=>`<rect class="lt" x="${x}" y="106" width="8" height="44" opacity=".22"/>`).join('')+`<rect class="f3" x="152" y="118" width="16" height="36"/><rect class="f3" y="152" width="320" height="28"/><path class="f1" opacity=".5" d="M70 154h180l10 8H60z"/>`+win('lt',[8,104,4,5],[30,84,4,5],[40,96,4,5],[76,72,4,5],[250,70,4,5],[262,84,4,5],[300,92,4,5],[212,90,4,5])+glow(54,138,3,'ac')+glow(266,138,3,'ac'),
+   cave:()=>`<rect class="f3" width="320" height="180"/><path class="k1" d="M64 180q-14-104 62-134 82-28 126 44 22 44 6 90z"/><path class="k2" opacity=".8" d="M68 180q-6-44 6-60h182q8 30-2 60z"/>`+orb(170,70,10)+`<path class="f1" d="M70 180q-4-22 0-40 44-8 92 0t92 0q6 20 0 40z"/><rect class="lt" x="150" y="150" width="40" height="1.500" opacity=".4"/><path class="f3" d="M132 158h44l-7 10h-30z"/><rect class="f3" x="153" y="140" width="2" height="18"/>`+glow(154,138,2.500,'ac')+`<path class="f3" d="M96 40l8 26 8-26zM150 20l7 30 7-30zM206 30l8 30 8-30z"/>`,
+   tent:()=>base()+sky+`<path class="f2" d="M0 180v-56l22-50 22 50 20-62 22 62 18-44 20 44h72l20-52 20 52 22-64 22 64 18-40 22 46v50z"/><path class="f1" d="M0 180v-24q160-12 320 0v24z"/><path class="f3" d="M104 162l56-70 56 70z"/><path class="lt" opacity=".9" d="M148 162l12-40 12 40z"/><rect class="f3" x="159" y="86" width="2" height="10"/>`+glow(160,150,3)+stars([30,150,1.200],[250,160,1.200],[290,148,1.200],[80,170,1.200]),
+   station:()=>`<rect class="f2" width="320" height="180"/>`+arch(14,136,4,'k1')+arch(170,136,4,'k1')+arch(14,136,40,'k2',.7)+arch(170,136,40,'k2',.7)+`<path d="M82 4v176M238 4v176M14 90h136M170 90h136" stroke="var(--g2)" stroke-width="4"/><rect class="f2" x="150" y="0" width="20" height="180"/><circle class="lt" cx="160" cy="48" r="14"/><path d="M160 48v-9M160 48l7 4" stroke="var(--g3)" stroke-width="2" stroke-linecap="round"/><path class="f3" d="M0 180l96-44h128l96 44z"/><rect class="f3" x="212" y="104" width="108" height="36"/><rect class="ac" x="212" y="128" width="108" height="3"/>`+win('lt',[222,112,10,9],[240,112,10,9],[258,112,10,9],[276,112,10,9],[294,112,10,9])+`<circle class="lt" cx="206" cy="96" r="8" opacity=".5"/><circle class="lt" cx="194" cy="82" r="11" opacity=".35"/><rect class="f1" x="40" y="146" width="22" height="14"/><rect class="f1" x="46" y="136" width="18" height="10"/>`,
+   parapet:()=>base()+`<path class="f1" d="M60 180V96l40 30 60-10 60 26 40-22v60z"/><rect class="lt" x="150" y="150" width="6" height="30" opacity=".35"/><rect class="f3" y="36" width="62" height="144"/><path class="f3" d="M0 38h66v-8h-10v-8H46v8H34v-8H22v8H10v-8H0z"/><rect class="f3" x="258" y="62" width="62" height="118"/><path class="f3" d="M254 64h66V48h-10v8h-12v-8h-12v8h-12v-8h-10z"/><path class="f2" d="M60 92l200 16v7L60 100z"/>`+win('lt',[24,70,6,10],[286,90,6,10])+Array.from({length:14},(_,i)=>`<path d="M${20+i*22} ${10+i%3*14}l-8 30" stroke="var(--lt)" stroke-opacity=".28" stroke-width="1"/>`).join(''),
+   fortress:()=>base()+orb(258,38,11)+`<path class="f1" d="M0 180v-60l70-50 60 44 70-58 120 90v34z"/><path class="f2" d="M0 180v-36l76-22h168l76 26v32z"/><rect class="f3" x="80" y="92" width="160" height="32"/>`+[80,100,120,180,200,220].map(x=>`<rect class="f3" x="${x}" y="84" width="10" height="9"/>`).join('')+`<rect class="f3" x="68" y="74" width="24" height="50"/><rect class="f3" x="228" y="74" width="24" height="50"/><rect class="f3" x="140" y="62" width="40" height="62"/><path class="f3" d="M64 76h32v-7h-8v-6h-8v6h-8v-6h-8zM224 76h32v-7h-8v-6h-8v6h-8v-6h-8zM136 64h48v-8h-10v-7h-10v7h-8v-7h-10v7h-10z"/><rect class="f3" x="159" y="26" width="2" height="24"/><path class="ac" d="M161 26l16 5-16 5z"/>`+win('lt',[156,80,8,12],[77,90,5,8],[238,90,5,8])+wing(36,30,.8),
+   battle:()=>base()+`<ellipse class="f1" cx="90" cy="46" rx="80" ry="22" opacity=".6"/><ellipse class="f1" cx="240" cy="60" rx="70" ry="20" opacity=".55"/><path class="f3" d="M0 180v-58h20V92h18l6 12 8-6v24h22V78l10 8 10-14v50h26v-30h22v-14l12 10v34h24V70h14l4 14 10-8v46h26V96h22v26h20v-18l16 8v68z"/>`+[[60,108,10],[150,96,13],[236,104,11],[292,116,8]].map(([x,y,r])=>`<path class="ac" d="M${x-r} ${y+r}q-${r*.4}-${r*1.300} ${r}-${r*2.600} ${r*1.400} ${r*1.300} ${r} ${r*2.600}z"/><circle class="lt" cx="${x}" cy="${y+r*.5}" r="${r*.4}"/>`).join('')+`<rect class="f3" y="160" width="320" height="20"/>`+wing(40,26,1)+wing(214,18,.75),
+   book:()=>`<rect class="f2" width="320" height="180"/><rect class="k1" x="0" y="0" width="320" height="60" opacity=".55"/>`+stars([40,20],[96,34,.8],[150,14,1.2],[228,30,.8],[286,18])+`<rect class="f3" y="138" width="320" height="42"/><path class="f3" opacity=".5" d="M52 140l8-8h200l8 8z"/><path class="lt" d="M58 134l5-66q52-12 97 6v64q-50-14-102-4z"/><path class="k2" d="M262 134l-5-66q-52-12-97 6v64q50-14 102-4z"/><path d="M76 84q36-7 70 3M76 96q36-7 70 3M77 108q36-7 69 3M78 120q34-6 68 3" stroke="var(--g1)" stroke-width="3" stroke-linecap="round" fill="none"/><rect class="f3" x="194" y="94" width="32" height="25" rx="4"/><path d="M201 94v-8a9 9 0 0 1 18 0v8" stroke="var(--g3)" stroke-width="4.5" fill="none"/><circle class="lt" cx="210" cy="105" r="3"/><rect class="lt" x="209" y="106" width="2" height="7"/><rect class="ac" x="158.5" y="74" width="3" height="62" opacity=".8"/><rect class="lt" x="22" y="98" width="7" height="40"/>`+glow(25.5,92,4)+`<rect class="f1" x="276" y="118" width="30" height="7"/><rect class="ac" x="280" y="111" width="26" height="7"/><rect class="f1" x="274" y="125" width="34" height="13"/>`,
+   isle:()=>base()+orb(250,40,13)+`<rect class="f1" y="118" width="320" height="62"/><path class="f2" d="M70 122q90-70 190 0z"/><rect class="f3" x="150" y="62" width="34" height="5"/><rect class="f3" x="152" y="66" width="4" height="22"/><rect class="f3" x="165" y="66" width="4" height="24"/><rect class="f3" x="178" y="66" width="4" height="22"/><path class="f3" d="M148 62l19-10 19 10z"/><path d="M108 112q2-22 12-34" stroke="var(--g3)" stroke-width="3" fill="none"/><path class="f3" d="M120 78q-14-8-24 0 12-2 24 0zm0 0q10-12 24-6-12 0-24 6zm0 0q-4-14 6-22-2 12-6 22z"/><path class="f3" d="M20 150h44l-8 12H28z"/><path class="lt" d="M42 150v-30l18 30z" opacity=".9"/><rect class="lt" x="200" y="134" width="60" height="1.500" opacity=".4"/><rect class="lt" x="120" y="150" width="90" height="1.500" opacity=".25"/><rect class="lt" x="230" y="162" width="70" height="1.500" opacity=".2"/>`
+  };
+  const LABEL={street:'A row of houses',sea:'A hut on a rock at sea',train:'A steam train crossing a viaduct',castle:'A castle on a cliff above a lake',field:'A playing field between two stands',corridor:'A stone corridor with a lit doorway',forest:'A forest with lights among the trunks',chamber:'A pillared chamber underground',hall:'A great hall lit by candles',room:'A study with a window and a desk',village:'A village of cottages',tower:'A tower on a castle wall',lake:'A lake with reeds',manor:'A manor house behind iron gates',mountain:'Mountains with a winged shape overhead',graveyard:'A churchyard',city:'A grand building in a city',cave:'A sea cave with a small boat',tent:'A tent among trees',station:'A railway station',parapet:'A narrow bridge between two towers',fortress:'A fortress on a ridge',battle:'A city on fire',isle:'An island with a temple',book:'An open book with one page sealed'};
+  const TIME={night:'at night',dusk:'at dusk',day:'by day',snow:'in winter',storm:'in a storm',ember:'by firelight'};
+  return {svg(spec){const [k,t]=String(spec||'castle:night').split(':'),f=S[k]||S.castle;
+    return `<svg class="sc p-${TIME[t]?t:'night'}" viewBox="0 0 320 180" preserveAspectRatio="xMidYMid slice" role="img" aria-label="${LABEL[k]||LABEL.castle} ${TIME[t]||TIME.night}">${f().replace(/\.500/g,'.5').replace(/\.300/g,'.3').replace(/\.150/g,'.15').replace(/\.200/g,'.2').replace(/\.600/g,'.6').replace(/\.400/g,'.4')}</svg>`},keys:Object.keys(S)};
+})();
+/* which scene illustrates each part, in story order */
+const PART_ART={
+ empyrean:['parapet:storm','fortress:day','field:day','mountain:day','field:dusk','forest:day','mountain:dusk','tower:storm','field:day','fortress:dusk','forest:night','tower:storm','fortress:night','battle:ember','village:dusk',
+  'village:day','fortress:day','parapet:day','fortress:dusk','forest:day','room:night','chamber:night','mountain:storm','chamber:ember','corridor:night','hall:day','city:day','mountain:snow','field:day','tower:night','fortress:night','battle:night','battle:ember',
+  'fortress:dusk','hall:day','battle:ember','room:night','mountain:dusk','isle:day','field:dusk','hall:night','isle:night','isle:dusk','room:dusk','isle:day','fortress:storm','battle:storm','tower:dusk'],
+ hp:['street:night','sea:storm','train:day','castle:night','field:day','corridor:night','forest:night','chamber:ember',
+  'street:dusk','castle:dusk','corridor:night','hall:day','room:night','forest:night','chamber:night',
+  'street:night','train:storm','field:storm','village:snow','tower:night','forest:dusk','lake:night',
+  'manor:night','field:night','hall:day','mountain:day','hall:snow','lake:day','room:night','graveyard:night','tower:dusk',
+  'street:dusk','city:night','castle:day','village:day','corridor:night','room:night','castle:storm','chamber:night','room:dusk',
+  'city:storm','train:day','room:day','hall:snow','forest:dusk','room:night','cave:night','lake:day',
+  'street:night','village:day','city:night','city:day','tent:snow','forest:snow','manor:night','mountain:day','castle:ember','forest:night','station:day']
+};
+const artOf=x=>SCENES.svg((PART_ART[GID]||[])[BEATS.indexOf(x)]);
+
 /* ---------- ICONS ---------- */
 const IC={
   codex:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.4 14.8c1.7.8 2.8 2.5 3.1 5.2"/>',
@@ -5962,20 +6074,40 @@ function bondsView(){
   <p class="muted" style="margin-top:12px;font-size:.9rem">The chapter on each line is where the bond first appears in the books. TD means a Threshing Day story you've read.</p>`;
 }
 
+const TL={book:null,n:null,pos:null};
 function timelineView(){
-  const b=effPos();
-  const here=S.editor?null:beatOf(S.pos);
+  const b=effPos(),here=S.editor?null:beatOf(S.pos),cur=here||BEATS[0];
+  if(TL.pos!==S.pos){TL.book=TL.n=null;TL.pos=S.pos}
+  const bk=BOOKS.find(k=>k.id===TL.book)||BOOKS.find(k=>k.id===cur.b)||BOOKS[0],bs=BEATS.filter(x=>x.b===bk.id);
+  const x=bs.find(q=>q.n===TL.n)||(bs.includes(cur)?cur:bs[0]),i=bs.indexOf(x),all=BEATS.indexOf(x);
+  TL.book=bk.id;TL.n=x.n;
+  setTimeout(()=>{try{const a=document.querySelector('.reel-books [aria-pressed="true"]');if(a&&a.parentNode)a.parentNode.scrollLeft=a.offsetLeft-a.parentNode.offsetLeft-16}catch(e){}},0);
+  const done=x.to<=b,open=x.from<=b,now=here&&here.n===x.n,prev=BEATS[all-1],next=BEATS[all+1];
+  const nav=(q,dir)=>q?`<button class="btn ghost" data-tl-n="${q.n}" data-tl-book="${q.b}">${dir<0?'<span aria-hidden="true">←</span> ':''}${q.b!==bk.id?esc(BOOKS.find(k=>k.id===q.b).name):dir<0?'Previous':'Next'}${dir>0?' <span aria-hidden="true">→</span>':''}</button>`:`<span></span>`;
   return `${editorBanner()}${vhead('Timeline',BLURB.timeline)}
-  ${BOOKS.map(bk=>{const bs=BEATS.filter(x=>x.b===bk.id);
-    if(bk.start>b)return `<div class="tl-book"><h3>${esc(bk.name)}</h3><span class="count">${bs.length} parts</span></div><div class="sealed">${ico('lock')}Sealed until you start this book</div>`;
-    return `<div class="tl-book"><h3>${esc(bk.name)}</h3><span class="count">${bs.length} parts</span></div><ol class="tl">${bs.map(x=>{const now=here&&here.n===x.n,tag=now?'<span class="here">You are here</span>':'';
-      if(x.to<=b)return `<li class="${now?'now':''}"><div class="tcard"><span class="code muted">${esc(chRange(x))}</span><h4>${esc(x.t)}${tag}</h4><p>${esc(x.s)}</p></div></li>`;
-      if(x.from<=b)return `<li class="now"><div class="tcard"><span class="code muted">${esc(chRange(x))}</span><h4>${esc(x.t)}${tag}</h4><p>${esc(x.hint)}</p><p class="muted" style="font-size:.9rem">The summary opens when you finish ${esc(chLabel(x.to).toLowerCase())}.</p></div></li>`;
-      return `<li class="future"><div class="sealed">${ico('lock')}<span><span class="code">${esc(chRange(x))}</span> · Sealed until you reach it</span></div></li>`}).join('')}</ol>`}).join('')}
-  ${UPCOMING.map(s=>`<div class="tl-book"><h3>Book ${s.n}</h3><span class="count">Not released yet</span></div><div class="soon">Parts appear here after the book is out and has been read for the guide.</div>`).join('')}
-  ${SOON.map(s=>`<div class="tl-book"><h3>${esc(s.name)}</h3><span class="count">Book ${s.n}</span></div><div class="soon">Not in the guide yet. This book is still being written up.</div>`).join('')}
+  ${BOOKS.length>1?`<div class="reel-books" role="group" aria-label="Book">${BOOKS.map(k=>`<button data-tl-book="${k.id}" aria-pressed="${k.id===bk.id}">${k.start>b?ico('lock'):''}${esc(k.name)}</button>`).join('')}</div>`:''}
+  <article class="reel${now?' now':''}" aria-live="polite">
+   <div class="plate${open?'':' shut'}">${open?artOf(x):`<div class="plate-lock">${ico('lock')}<span>${bk.start>b?'Sealed until you start this book':'Sealed until you reach it'}</span></div>`}</div>
+   <div class="reel-body"><span class="code muted">${esc(bk.name)} · ${esc(chRange(x))} · Part ${i+1} of ${bs.length}</span>
+    <h3>${open?esc(x.t):'Not yet'}${now?' <span class="here">You are here</span>':''}</h3>
+    ${done?`<p>${esc(x.s)}</p>`:open?`<p>${esc(x.hint)}</p><p class="muted note">The summary opens when you finish ${esc(chLabel(x.to).toLowerCase())}.</p>`:`<p class="muted">This part opens when you reach ${esc(chName(x.from))}.</p>`}
+   </div>
+  </article>
+  <nav class="reel-nav" aria-label="Parts">${nav(prev,-1)}
+   <div class="reel-dots">${bs.map((q,j)=>`<button data-tl-n="${q.n}" data-tl-book="${bk.id}" class="${q.to<=b?'done':q.from<=b?'part':'shut'}" aria-current="${q.n===x.n}" aria-label="Part ${j+1}${q.from<=b?': '+esc(q.t):', sealed'}"></button>`).join('')}</div>
+   ${nav(next,1)}</nav>
+  ${UPCOMING.length?`<p class="note" style="margin-top:18px">${UPCOMING.length===1?'Book '+UPCOMING[0].n+' is':'Books '+UPCOMING.map(u=>u.n).join(' and ')+' are'} not released yet. Parts appear here after a book is out and has been read for the guide.</p>`:''}
+  ${SOON.length?`<p class="note" style="margin-top:18px">${SOON.length} more book${SOON.length>1?'s are':' is'} still being written up.</p>`:''}
   ${COMPANIONS.length?tdTimeline():''}`;
 }
+/* the reel: tap, arrow keys or swipe to turn the page */
+function tlGo(n,book){TL.n=n==null?null:+n;TL.book=book||TL.book;TL.pos=S.pos;renderView();const h=document.querySelector('.reel h3');if(h&&innerWidth<960)document.querySelector('.reel').scrollIntoView({block:'nearest'})}
+function tlStep(d){const x=BEATS.find(q=>q.n===TL.n),q=x&&BEATS[BEATS.indexOf(x)+d];if(q)tlGo(q.n,q.b)}
+document.addEventListener('click',ev=>{const el=ev.target.closest&&ev.target.closest('[data-tl-book]');if(!el)return;tlGo(el.dataset.tlN!=null?el.dataset.tlN:null,el.dataset.tlBook)});
+document.addEventListener('keydown',ev=>{if(S.tab!=='timeline'||HOME||ev.target.closest('input,select,textarea')||document.querySelector('.panel.open,.sheet.open,[aria-modal="true"]:not([hidden])'))return;
+  if(ev.key==='ArrowRight'){tlStep(1)}else if(ev.key==='ArrowLeft'){tlStep(-1)}});
+{let sx=null,sy=0;document.addEventListener('touchstart',ev=>{const r=ev.target.closest&&ev.target.closest('.reel');sx=r?ev.touches[0].clientX:null;sy=r?ev.touches[0].clientY:0},{passive:true});
+ document.addEventListener('touchend',ev=>{if(sx==null)return;const dx=ev.changedTouches[0].clientX-sx,dy=ev.changedTouches[0].clientY-sy;sx=null;if(Math.abs(dx)>50&&Math.abs(dx)>Math.abs(dy)*1.5)tlStep(dx<0?1:-1)},{passive:true})}
 
 /* Threshing Day on the timeline: a story's summary opens once it's marked read and you've reached its spoiler line */
 const storyName=x=>{if(x.kind==='essay')return x.t;const w=byId[x.who];return w&&visible(w)?x.t:`Story ${x.n}`};
@@ -6195,7 +6327,7 @@ const GUIDES=[
   order:[['Fourth Wing','Start here'],['Iron Flame',''],['Onyx Storm','']],
   extra:[['Threshing Day','Companion stories. Parapet tells you which ones are safe to read at your chapter.']],
   orderNote:'Two more novels are planned.',
-  note:'Written for adults: battlefield violence and explicit romance.'},
+  note:'Written for adults: battlefield violence and explicit romance.',art:['parapet:storm','fortress:dusk','mountain:day']},
  {id:'hp',live:true,name:'Harry Potter',author:'J.K. Rowling',first:"Sorcerer's Stone",count:'7 books',total:7,
   hook:"On his eleventh birthday, an orphan learns he's a wizard, and that the school waiting for him keeps secrets older than he is.",
   pitch:["Harry Potter has spent ten years in a cupboard under the stairs, unwanted by the aunt and uncle who took him in. Then letters start to arrive, by the hundred, addressed to him by name.",
@@ -6208,19 +6340,19 @@ const GUIDES=[
    ['A cast that keeps growing','Classmates, teachers, ghosts and creatures by the dozen. That is what Parapet is for.']],
   order:[["Sorcerer's Stone","Start here. Philosopher's Stone in the UK"],['Chamber of Secrets',''],['Prisoner of Azkaban',''],['Goblet of Fire',''],['Order of the Phoenix',''],['Half-Blood Prince',''],['Deathly Hallows','']],
   extra:[],
-  note:'Starts as a children\'s book and grows up as it goes; the later books are darker.'},
+  note:'Starts as a children\'s book and grows up as it goes; the later books are darker.',art:['street:night','castle:dusk','forest:night']},
  {id:'acotar',name:'A Court of Thorns and Roses',author:'Sarah J. Maas',count:'5 books so far',
   hook:'A huntress kills a wolf in the winter woods, and is taken across the wall into the faerie lands to answer for it.',
-  vibes:['Fae courts','Romance','Old curses']},
+  vibes:['Fae courts','Romance','Old curses'],art:['forest:day']},
  {id:'asoiaf',name:'A Song of Ice and Fire',author:'George R.R. Martin',count:'5 of 7 books out',
   hook:'Noble houses scheme for one throne while something older stirs beyond a wall of ice.',
-  vibes:['Political intrigue','Many narrators','Huge cast']},
+  vibes:['Political intrigue','Many narrators','Huge cast'],art:['fortress:snow']},
  {id:'lotr',name:'The Lord of the Rings',author:'J.R.R. Tolkien',count:'3 volumes',
   hook:'A quiet hobbit inherits a ring that the darkest power in the world wants back.',
-  vibes:['Epic quest','Deep lore','Fellowship']},
+  vibes:['Epic quest','Deep lore','Fellowship'],art:['mountain:dusk']},
  {id:'tog',name:'Throne of Glass',author:'Sarah J. Maas',count:'8 books',
   hook:"An assassin is pulled out of a salt mine to compete for the post of the king's champion.",
-  vibes:['Assassins','Tournament','Hidden magic']}
+  vibes:['Assassins','Tournament','Hidden magic'],art:['city:dusk']}
 ];
 IC.back=IC.chev;
 IC.library='<path d="M5 4v16M9.5 4v16M14 5.5l4.5 14"/><path d="M3 20h18"/>';
@@ -6321,24 +6453,23 @@ function demoHtml(){
 }
 function obBody(){
   const g=guideOf(OB.guide),D=GUIDE_DATA[g.id].BOOKS;
-  if(OB.step===0)return `<span class="eyebrow">Welcome to Parapet</span><h2 class="h-display"><span class="nw">Look anything up.</span> <span class="nw">Spoil nothing.</span></h2>
+  const thumb=x=>`<span class="thumb" aria-hidden="true">${SCENES.svg(x.art[0])}</span>`;
+  if(OB.step===0)return `<div class="ob-art">${SCENES.svg('book:night')}</div><span class="eyebrow">Welcome to Parapet</span><h2 class="h-display"><span class="nw">Look anything up.</span> <span class="nw">Spoil nothing.</span></h2>
    <p class="h-lede">Parapet is a reading companion for long fantasy series. Tell it the chapter you're on, and it shows you who's who, what they can do and where everything is, using only what you've already read.</p>
    ${demoHtml()}<p class="note">Try it: move the chapter and watch what opens.</p>`;
   if(OB.step===1){const pk=OB.peek&&guideOf(OB.peek);
    return `<span class="eyebrow">Step 2 of 4</span><h2 class="h-display">What are you reading?</h2>
-   <div class="pick" role="radiogroup" aria-label="Guides that are ready">${LIVE.map(x=>`<button class="opt sr" role="radio" aria-checked="${x.id===OB.guide}" data-act="ob-guide" data-id="${x.id}">${cover(x,1)}<span><b>${esc(x.name)}</b><small>${esc(x.author)} · starts with ${esc(x.first)}</small><br><span class="pill live" style="margin-top:6px">${partial(x)?`Book ${GUIDE_DATA[x.id].BOOKS.length} of ${x.total} ready`:'Guide ready'}</span></span></button>`).join('')}</div>
-   <div class="h-sec" style="margin:6px 0 0"><span class="eyebrow">Coming soon</span></div>
-   <div class="pick two">${GUIDES.filter(x=>!x.live).map(x=>`<button class="opt sr tba" data-act="ob-peek" data-id="${x.id}" aria-pressed="${OB.peek===x.id}">${cover(x,1)}<span><b>${esc(x.name)}</b><small>${esc(x.author)}</small></span></button>`).join('')}</div>
+   <div class="bookgrid" role="radiogroup" aria-label="Series">${LIVE.map(x=>`<button class="tile" role="radio" aria-checked="${x.id===OB.guide}" data-act="ob-guide" data-id="${x.id}"><span class="plate">${SCENES.svg(x.art[0])}</span><span class="tile-t"><b>${esc(x.name)}</b><small>${esc(x.author)}</small><span class="pill live">${partial(x)?`Book ${GUIDE_DATA[x.id].BOOKS.length} of ${x.total} ready`:'Guide ready'}</span></span></button>`).join('')}${GUIDES.filter(x=>!x.live).map(x=>`<button class="tile tba" data-act="ob-peek" data-id="${x.id}" aria-pressed="${OB.peek===x.id}"><span class="plate">${SCENES.svg(x.art[0])}</span><span class="tile-t"><b>${esc(x.name)}</b><small>${esc(x.author)}</small><span class="pill">Coming soon</span></span></button>`).join('')}</div>
    <p class="note" role="status">${pk?`${esc(pk.hook)} The guide isn't written yet; it's on the list.`:`${LIVE.length===1?'One guide is':LIVE.length+' guides are'} ready today. Tap a coming one for a taste of it.`}</p>`}
   if(OB.step===2)return `<span class="eyebrow">${esc(g.name)} · ${esc(g.author)}</span><h2 class="h-display">${esc(g.hook)}</h2>
-   ${g.pitch.map(p=>`<p class="h-lede">${esc(p)}</p>`).join('')}
+   ${g.pitch.map((p,i)=>`<div class="pitchcard"><div class="plate">${SCENES.svg(g.art[i%g.art.length])}</div><p>${esc(p)}</p></div>`).join('')}
    <div class="vibes">${g.vibes.map(v=>`<span>${esc(v)}</span>`).join('')}</div>
    <ol class="why">${g.why.slice(0,3).map(([a,b],i)=>`<li><span class="n">${i+1}</span><div><b>${esc(a)}</b><span>${esc(b)}</span></div></li>`).join('')}</ol>
    <p class="note">${esc(g.note)} Nothing here goes past the opening premise.</p>`;
   const bk=D.find(b=>b.id===OB.book)||D[0],opts=[];for(let c=bk.first;c<=bk.last;c++)opts.push(`<option value="${bk.id+c}" ${OB.at===bk.id+c?'selected':''}>${c===0?'Prologue':bk.epi===c?'Epilogue':'Chapter '+c}</option>`);
   const o=(k,t,s)=>`<button class="opt" role="radio" aria-checked="${OB.where===k}" data-act="ob-where" data-id="${k}"><span class="rd"></span><span><b>${t}</b><small>${s}</small></span></button>`;
   const part=partial(g),one=D.length===1;
-  return `<span class="eyebrow">Step 4 of 4</span><h2 class="h-display">Where are you in the series?</h2>
+  return `<div class="ob-art">${SCENES.svg('train:'+(g.id==='hp'?'day':'dusk'))}</div><span class="eyebrow">Step 4 of 4</span><h2 class="h-display">Where are you in the series?</h2>
    <div class="pick" role="radiogroup" aria-label="Where are you in the series?">
     ${o('new',"I haven't started yet",`The guide opens at chapter 1 of ${esc(D[0].name)}, with only the opening cast.`)}
     ${o('mid',one?`I'm reading ${esc(D[0].name)}`:"I'm reading it","Pick the last chapter you finished.")}
