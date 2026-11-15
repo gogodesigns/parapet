@@ -332,6 +332,25 @@ button.num:hover{border-color:var(--ink);color:var(--ink)}
 .p-snow{--s1:#7F97B8;--s2:#E9EEF5;--g1:#D6DEEA;--g2:#93A5BF;--g3:#46566F;--lt:#FFE9A8;--ac:#B33A4A}
 .p-storm{--s1:#1B262E;--s2:#52646F;--g1:#3A4A55;--g2:#25313A;--g3:#11181D;--lt:#E6F0F5;--ac:#9FD0FF}
 .p-ember{--s1:#240C11;--s2:#B23A2A;--g1:#6A2420;--g2:#3B141B;--g3:#1A090C;--lt:#FFC857;--ac:#FF7A3D}
+.la{display:block;width:100%;height:100%;color:var(--ink)}
+.la *{stroke-linejoin:round}
+.la .w{fill:var(--sheet);stroke:currentColor;stroke-width:2}
+.la .k{fill:currentColor;stroke:currentColor;stroke-width:2}
+.la .a{fill:var(--seal);stroke:currentColor;stroke-width:2}
+.la .t{fill:var(--rule-soft)}
+.la rect.t{stroke:currentColor;stroke-width:2;fill:transparent;opacity:.6}
+.intro{min-height:calc(100dvh - 48px);display:grid;grid-template-rows:auto minmax(0,1fr) auto auto auto;gap:18px;max-width:440px;margin:0 auto;width:100%}
+.intro-art{display:grid;place-items:center;min-height:0}
+.intro-art svg{max-height:46dvh;width:100%;height:auto}
+.intro-t{text-align:center;display:grid;gap:10px;justify-items:center}
+.intro-t .h-lede{max-width:34ch}
+.intro-dots{display:flex;justify-content:center;gap:2px}
+.intro-dots button{width:28px;height:28px;border:0;background:none;padding:0;position:relative;cursor:pointer}
+.intro-dots button::after{content:"";position:absolute;left:50%;top:50%;width:8px;height:8px;margin:-4px;border-radius:50%;background:var(--rule)}
+.intro-dots button[aria-current="true"]::after{width:22px;margin-left:-11px;border-radius:4px;background:var(--seal)}
+.intro-foot{display:flex;gap:10px;padding-bottom:8px}
+.intro-foot .btn{min-height:52px}
+.intro-foot .btn:last-child{flex:1}
 .libbtn{display:inline-flex;width:max-content;justify-self:start;align-items:center;gap:4px;min-height:40px;padding:0 14px 0 8px;margin:0 0 10px -4px;border:1px solid var(--rule);border-radius:999px;background:var(--sheet);color:var(--ink);font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
 .libbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
 .libbtn:hover{border-color:var(--ink)}
@@ -5833,6 +5852,45 @@ const PART_ART={
 };
 const artOf=x=>SCENES.svg((PART_ART[GID]||[])[BEATS.indexOf(x)]);
 
+/* ---------- LINE ART ----------
+   Original outline drawings for the welcome pages: invented, anonymous readers, drawn in the page's own ink
+   so they follow the light and dark themes. */
+const LINEART=(()=>{
+  const limb=(d,w,c)=>`<path d="${d}" fill="none" stroke="currentColor" stroke-width="${w+4}" stroke-linecap="round" stroke-linejoin="round"/><path d="${d}" fill="none" stroke="${c||'var(--sheet)'}" stroke-width="${w}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const leg=d=>`<path d="${d}" fill="none" stroke="currentColor" stroke-width="13" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const HAIR={short:'M-13 91q-3-18 13-19 17 0 13 16-7-8-15-6-6 2-11 9z',long:'M-13 92q-3-20 13-20 18 0 14 23l3 30q-9 4-11-4l-1-26q-9-9-18-3z',bun:'M-13 91q-3-18 13-19 17 0 13 16-7-8-15-6-6 2-11 9zM-4 70a7 7 0 1 1 9 0z',curl:'M-14 90q-6-10 2-15 2-8 11-6 8-5 13 3 8 3 3 14-6-9-16-6-7 2-13 10z'};
+  const body=(x,hair,arms,o)=>`<g transform="translate(${x} ${(o&&o.y)||0})">${leg('M-7 168L-9 219')}${leg('M7 168L10 219')}<path class="w" d="M-19 228q0-9 10-9h5v9zM3 228v-9h5q11 0 11 9z"/><path class="w" d="M-17 113q17-9 34 0l4 59h-42z"/><path class="w" d="M-4 104h8v8h-8z" stroke="none"/><circle class="w" cx="0" cy="92" r="13"/><path class="k" d="${HAIR[hair]}"/>${arms||''}</g>`;
+  const bubble=(x,y,r,inner)=>`<path class="w" d="M${x-r} ${y}a${r} ${r} 0 1 1 ${r*.5} ${r*.86}l-${r*.45} ${r*.5} ${r*.05}-${r*.62}a${r} ${r} 0 0 1-${r*.1}-${r*.74}z"/>${inner}`;
+  const lock=(x,y,s,c)=>`<g transform="translate(${x} ${y}) scale(${s})"><path d="M-5-2v-5a5 5 0 0 1 10 0v5" fill="none" stroke="currentColor" stroke-width="2.4"/><rect class="${c||'k'}" x="-8" y="-2" width="16" height="13" rx="2.5"/></g>`;
+  const plant=x=>`<g transform="translate(${x} 0)"><path class="w" d="M0 196q-16-26-6-52 12 20 6 52zM2 196q-2-34 16-50-2 30-16 50zM-2 198q-20-12-26-34 20 8 26 34z"/><path class="w" d="M-14 196h30l-4 32h-22z"/></g>`;
+  const spark=(x,y)=>`<path d="M${x-5} ${y}h10M${x} ${y-5}v10" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>`;
+  const blob=d=>`<path class="t" d="${d}" stroke="none"/>`;
+  const ground=`<path d="M26 228.500H294" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`;
+  const q=(x,y,s)=>`<text x="${x}" y="${y}" font-size="${s}" text-anchor="middle" font-family="Georgia,serif" fill="currentColor" stroke="none">?</text>`;
+  const book=(x,y,c)=>`<g transform="translate(${x} ${y})"><path class="${c||'w'}" d="M-22-10q11-5 22 2 11-7 22-2v24q-11-5-22 2-11-7-22-2z"/><path d="M0-8v24" stroke="currentColor" stroke-width="1.600"/></g>`;
+  const P={
+   /* someone in an armchair who has lost track of the cast */
+   lost:()=>blob('M40 150q-10-70 60-96 70-24 130 10 60 40 40 110-10 40-50 54H80q-34-20-40-78z')+ground
+     +`<rect class="w" x="96" y="108" width="96" height="96" rx="24"/><rect class="w" x="80" y="150" width="28" height="62" rx="13"/><rect class="w" x="180" y="150" width="28" height="62" rx="13"/><rect class="w" x="100" y="168" width="88" height="40" rx="12"/><path d="M92 212v16M196 212v16" stroke="currentColor" stroke-width="2.400" stroke-linecap="round"/>`
+     +`<g transform="translate(144 6)">${leg('M-6 166L22 172 26 214')}${leg('M8 164L40 178 42 214')}<path class="w" d="M14 222q0-9 10-9h6v9zM32 222q0-9 10-9h6v9z"/><path class="w" d="M-17 113q17-9 34 0l5 55h-44z"/><circle class="w" cx="0" cy="92" r="13"/><path class="k" d="${HAIR.curl}"/>${book(14,140)}${limb('M-15 120Q-22 142-6 146',7)}${limb('M15 120Q34 128 34 142',7)}</g>`
+     +bubble(240,74,24,q(241,85,30))+bubble(70,70,17,q(71,78,20))+`<circle class="w" cx="268" cy="126" r="11"/><circle class="k" cx="268" cy="123" r="3.500"/><path class="k" d="M261 133q7-7 14 0z"/><circle class="w" cx="30" cy="150" r="9"/><circle class="k" cx="30" cy="148" r="3"/><path class="k" d="M24 156q6-6 12 0z"/>`
+     +plant(244)+spark(206,40)+spark(100,36)+`<path d="M52 228V136" stroke="currentColor" stroke-width="2.400"/><path class="a" d="M36 136l8-26h16l8 26z"/>`,
+   /* a reader setting their chapter on a big screen */
+   place:()=>blob('M30 170q-20-90 70-120 90-26 150 30 50 60 20 120-14 20-30 28H70q-32-18-40-58z')+ground
+     +`<rect class="k" x="92" y="26" width="112" height="202" rx="16"/><rect class="w" x="98" y="26" width="112" height="202" rx="16"/><rect class="k" x="138" y="26" width="32" height="7" rx="3.500" stroke="none"/><path class="a" d="M184 26v34l-8-7-8 7V26z"/>`
+     +[[52,1],[86,1],[120,0],[154,0]].map(([y,o])=>`<rect class="${o?'w':'t'}" x="110" y="${y}" width="88" height="27" rx="8"${o?'':' stroke-dasharray="4 4"'}/>`+(o?`<circle class="a" cx="124" cy="${y+13.500}" r="6" stroke="none"/><path d="M138 ${y+10}h46M138 ${y+18}h30" stroke="currentColor" stroke-width="2.400" stroke-linecap="round"/>`:lock(124,y+12,.72)+`<path d="M138 ${y+14}h40" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" opacity=".35"/>`)).join('')
+     +`<path d="M112 202h84" stroke="currentColor" stroke-width="2.400" stroke-linecap="round" opacity=".35"/><path d="M112 202h40" stroke="var(--seal)" stroke-width="3.500" stroke-linecap="round"/><circle class="w" cx="152" cy="202" r="7"/>`
+     +body(250,'long',limb('M-15 121Q-40 150-74 196',7)+limb('M16 121Q26 146 20 166',7)+`<circle class="w" cx="-76" cy="198" r="4.500"/>`)
+     +`<path class="w" d="M30 214h44v14H30zM36 200h36v14H36z"/><path class="a" d="M40 186h30v14H40z"/>`+spark(232,50)+spark(60,150),
+   /* two readers: one further on, keeping the ending to themself */
+   sealed:()=>blob('M34 160q-14-84 70-108 96-24 150 34 40 56 14 110-12 22-32 32H76q-36-22-42-68z')+ground
+     +body(104,'short',limb('M-16 121Q-34 138-30 160',7)+limb('M16 121Q34 110 30 88',7)+`<circle class="w" cx="30" cy="85" r="4.500"/>`)
+     +bubble(170,62,26,lock(171,58,1.500,'a'))
+     +body(226,'bun',limb('M-16 121Q-30 140-10 148',7)+limb('M16 121Q30 142 12 150',7)+book(1,146,'a'))
+     +plant(282)+`<path class="w" d="M38 204h34v24H38z"/><path d="M38 212h34" stroke="currentColor" stroke-width="2"/>`+spark(140,110)+spark(256,56)+spark(60,96)
+  };
+  return {svg(k,label){return `<svg class="la" viewBox="0 0 320 240" role="img" aria-label="${label||''}">${P[k]().replace(/\.500/g,'.5').replace(/\.400/g,'.4').replace(/\.600/g,'.6')}</svg>`}};
+})();
 /* ---------- ICONS ---------- */
 const IC={
   codex:'<circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.6-3.6 3.2-5.5 6.5-5.5s5.9 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18.4 14.8c1.7.8 2.8 2.5 3.1 5.2"/>',
@@ -6389,8 +6447,8 @@ function showHome(state,push){
   HOME=state;const el=$('#home');
   if(!state){el.hidden=true;document.body.classList.remove('home-open');return}
   closeAll();el.hidden=false;document.body.classList.add('home-open');
-  $('#homeIn').className='home-in'+(state.v==='onboard'?' narrow':'');
-  $('#homeIn').innerHTML=state.v==='onboard'?onboardView():state.v==='series'?seriesView(guideOf(state.id)||guideOf(GID)):libraryView();
+  $('#homeIn').className='home-in'+(state.v==='onboard'||state.v==='intro'?' narrow':'');
+  $('#homeIn').innerHTML=state.v==='intro'?introView():state.v==='onboard'?onboardView():state.v==='series'?seriesView(guideOf(state.id)||guideOf(GID)):libraryView();
   applyTheme(S.theme);
   if(push){el.scrollTop=0;try{history.pushState({home:state.v==='series'?{v:'series',id:state.id}:{v:state.v}},'')}catch(e){}
     const h=$('#homeIn h2');if(h){h.tabIndex=-1;try{h.focus({preventScroll:true})}catch(e){}}}
@@ -6493,6 +6551,21 @@ function obRender(focus){$('#homeIn').innerHTML=onboardView();if(focus){$('#home
 /* the demo plays once by itself: chapter 1, then 3, then 6. It waits for the splash to clear first */
 function obDemoPlay(){clearInterval(OB.timer);const seq=[3,6];let i=0;const go=()=>{OB.timer=setInterval(()=>{if(!HOME||HOME.v!=='library'||i>=seq.length){clearInterval(OB.timer);return}OB.just=OB.ch=seq[i++];demoPaint()},1300)};
   const sp=document.getElementById('splash');const shown=sp&&!document.documentElement.classList.contains('no-splash');setTimeout(go,shown?1500:300)}
+/* ----- first visit: three pages on what Parapet is, then the library ----- */
+const INTRO=[
+ ['lost','A reader in an armchair, surrounded by question marks','Lost track of who\'s who?','Long fantasy series pile up characters, places and powers. Looking one up online usually tells you how the story ends.'],
+ ['place','A reader setting their chapter on a large phone screen','Tell it your chapter','Pick a series and say where you are. Every entry is tied to a chapter, and only the ones you have reached are opened.'],
+ ['sealed','Two readers, one keeping the ending behind a lock','Nothing past your page','Everything further on stays sealed until you get there. Move your chapter forward as you read, and more unlocks.']];
+const IN={i:0};
+function introView(){const [k,label,t,d]=INTRO[IN.i],last=IN.i===INTRO.length-1;
+  return `<div class="intro"><div class="ob-top"><span class="eyebrow">Parapet</span>${last?'<span></span>':'<button class="textbtn" data-act="in-skip">Skip</button>'}</div>
+   <div class="intro-art">${LINEART.svg(k,label)}</div>
+   <div class="intro-t"><h2 class="h-display">${esc(t)}</h2><p class="h-lede">${esc(d)}</p></div>
+   <div class="intro-dots" role="group" aria-label="Page">${INTRO.map((x,j)=>`<button data-act="in-dot" data-id="${j}" aria-current="${j===IN.i}" aria-label="Page ${j+1} of ${INTRO.length}"></button>`).join('')}</div>
+   <div class="intro-foot">${IN.i?'<button class="btn ghost" data-act="in-back">Back</button>':''}<button class="btn${last?' seal':''}" data-act="in-next">${last?'Get started':'Next'}</button></div></div>`}
+function introGo(i){if(i>=INTRO.length){store.set('seen',true);showHome({v:'library'});try{history.replaceState({home:{v:'library'}},'')}catch(e){}return}IN.i=Math.max(0,i);$('#homeIn').innerHTML=introView();$('#home').scrollTop=0}
+{let sx=null;document.addEventListener('touchstart',ev=>{sx=HOME&&HOME.v==='intro'?ev.touches[0].clientX:null},{passive:true});
+ document.addEventListener('touchend',ev=>{if(sx==null||!HOME||HOME.v!=='intro')return;const dx=ev.changedTouches[0].clientX-sx;sx=null;if(Math.abs(dx)>50)introGo(Math.min(INTRO.length-1,IN.i+(dx<0?1:-1)))},{passive:true})}
 function demoPaint(){const d=$('#homeIn .demo');if(d&&'outerHTML' in d)d.outerHTML=demoHtml()}
 function startTour(id,step){clearInterval(OB.timer);OB.guide=id;OB.step=step||2;OB.where=null;OB.book=null;OB.at=null;showHome({v:'onboard'},true)}
 function obFinish(skip){
@@ -6509,6 +6582,10 @@ function homeAct(a,el){
   if(a==='open'){const g=guideOf(id);if(!(g&&g.live&&GUIDE_DATA[id])){showHome({v:'series',id},true);return true}if(!progOf(id)){startTour(id,2);return true}if(id!==GID){switchGuide(id,'guide');return true}enterGuide(true);return true}
   if(a==='begin'){startTour(id||GID,HOME&&HOME.v==='series'?3:2);return true}
   if(other){if(a==='start1'){const b=GUIDE_DATA[id].BOOKS[0];gstore.set(gkey('pos',id),b.id+Math.max(1,b.first))}switchGuide(id,a);return true}
+  if(a==='in-next'){introGo(IN.i+1);return true}
+  if(a==='in-back'){introGo(IN.i-1);return true}
+  if(a==='in-skip'){introGo(INTRO.length);return true}
+  if(a==='in-dot'){introGo(+id);return true}
   if(a==='library'){showHome({v:'library'},true);return true}
   if(a==='series'){showHome({v:'series',id:id||GID},true);return true}
   if(a==='guide'){enterGuide(true);return true}
@@ -6542,7 +6619,7 @@ let arriving=null;try{arriving=sessionStorage.getItem('parapet.go');sessionStora
 if(!S.editor){try{history.replaceState({home:{v:'library'}},'');if(arriving||TABS.some(t=>t[0]===h))history.pushState({home:null},'')}catch(e){}}
 if(arriving){if(arriving==='progress'||arriving==='begin')openSheet();else if(arriving==='start1')toast(`Showing ${BOOKS[0].name}, chapter 1.`);else if(arriving==='arrive')arriveToast(!started())}
 /* the library is the front door. A link straight to a section, or the editor, opens the guide */
-else if(!S.editor&&!TABS.some(t=>t[0]===h)){showHome({v:'library'});if(!store.get('seen',false))obDemoPlay()}
+else if(!S.editor&&!TABS.some(t=>t[0]===h)){showHome(store.get('seen',false)?{v:'library'}:{v:'intro'})}
 </script>
 
 </body>
