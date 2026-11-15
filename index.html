@@ -332,6 +332,14 @@ button.num:hover{border-color:var(--ink);color:var(--ink)}
 .p-snow{--s1:#7F97B8;--s2:#E9EEF5;--g1:#D6DEEA;--g2:#93A5BF;--g3:#46566F;--lt:#FFE9A8;--ac:#B33A4A}
 .p-storm{--s1:#1B262E;--s2:#52646F;--g1:#3A4A55;--g2:#25313A;--g3:#11181D;--lt:#E6F0F5;--ac:#9FD0FF}
 .p-ember{--s1:#240C11;--s2:#B23A2A;--g1:#6A2420;--g2:#3B141B;--g3:#1A090C;--lt:#FFC857;--ac:#FF7A3D}
+.libbtn{display:inline-flex;width:max-content;justify-self:start;align-items:center;gap:4px;min-height:40px;padding:0 14px 0 8px;margin:0 0 10px -4px;border:1px solid var(--rule);border-radius:999px;background:var(--sheet);color:var(--ink);font:inherit;font-size:.92rem;font-weight:600;cursor:pointer}
+.libbtn svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.libbtn:hover{border-color:var(--ink)}
+.nowcard .plate{display:block;aspect-ratio:4/3;border-radius:12px}
+.hub-hero{display:grid;gap:18px}
+@media (min-width:860px){.hub-hero.first{grid-template-columns:minmax(0,1fr) minmax(0,1fr);align-items:start}.hub-hero.first .ob-art{grid-column:1/-1}}
+@media (min-width:960px){.bookgrid.hub{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.tile:hover{border-color:var(--ink)}
 .bookgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .tile{display:grid;grid-template-rows:auto 1fr;text-align:left;padding:0;border:1px solid var(--rule-soft);border-radius:var(--r);background:var(--sheet);color:var(--ink);font:inherit;cursor:pointer;overflow:hidden}
 .tile .plate{aspect-ratio:4/3;display:block}
@@ -674,6 +682,7 @@ try{if(sessionStorage.getItem('parapet.splash'))document.documentElement.classLi
 
 <div class="app">
   <aside class="side" aria-label="Your reading progress">
+    <button type="button" class="libbtn" data-act="library"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg>Library</button>
     <div class="brand"><button type="button" class="brandbtn" data-act="library" aria-label="Parapet. Open the library of guides"><h1>Parapet</h1><p class="brand-sub" id="brandSub"></p></button>
       <div class="themesw" role="group" aria-label="Theme">
         <button type="button" data-theme-set="light" aria-label="Light theme" title="Light"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M2.5 12h2M19.5 12h2M5.3 5.3l1.4 1.4M17.3 17.3l1.4 1.4M18.7 5.3l-1.4 1.4M6.7 17.3l-1.4 1.4"/></svg></button>
@@ -6386,29 +6395,31 @@ function showHome(state,push){
   if(push){el.scrollTop=0;try{history.pushState({home:state.v==='series'?{v:'series',id:state.id}:{v:state.v}},'')}catch(e){}
     const h=$('#homeIn h2');if(h){h.tabIndex=-1;try{h.focus({preventScroll:true})}catch(e){}}}
 }
-function enterGuide(push){showHome(null);renderRail();renderView();scrollTo(0,0);if(push)try{history.pushState({home:null},'')}catch(e){}}
-try{addEventListener('popstate',ev=>{if(HOME&&HOME.v==='onboard')return;const h=ev.state&&ev.state.home;if(h)showHome(h);else showHome(null)})}catch(e){}
+function enterGuide(push){store.set('seen',true);showHome(null);renderRail();renderView();scrollTo(0,0);if(push)try{history.pushState({home:null},'')}catch(e){}}
+try{addEventListener('popstate',ev=>{const h=ev.state&&ev.state.home;if(h)showHome(h);else showHome(null)})}catch(e){}
 
 /* ----- library ----- */
 function nowCard(g){
-  const pr=progOf(g.id),here=g.id===GID,t=here&&pr?totalsAt(S.pos):null,all=here&&pr?totalsAt(MAX):null,part=partial(g);
-  return `<div class="nowcard"><button class="brandbtn" data-act="series" data-id="${g.id}" aria-label="About ${esc(g.name)}">${cover(g)}</button>
+  const pr=progOf(g.id),here=g.id===GID,t=here&&pr?totalsAt(S.pos):null,all=here&&pr?totalsAt(MAX):null;
+  return `<div class="nowcard"><button class="brandbtn" data-act="guide" data-id="${g.id}" aria-label="Continue ${esc(g.name)}"><span class="plate">${SCENES.svg(g.art[0])}</span></button>
     <div class="now-t"><span class="eyebrow">${esc(g.author)} · ${esc(g.count)}</span><h4>${esc(g.name)}</h4>
-     ${pr?`<p class="muted">You're at ${esc(pr.label)}.${t?` <b style="color:var(--ink)">${fmt(t.facts)}</b> of ${fmt(all.facts)} entries open.`:''}</p><div class="now-bar" aria-hidden="true"><i style="width:${Math.max(2,Math.round(pr.pos/pr.max*100))}%"></i></div>`
-       :`<p>${esc(g.hook)}</p>`}
-     ${part?`<p class="note">Book ${GUIDE_DATA[g.id].BOOKS.length} of ${g.total} is in the guide so far.</p>`:''}
-     <div class="now-act">${pr?`<button class="btn" data-act="guide" data-id="${g.id}">Continue reading</button>`:`<button class="btn" data-act="begin" data-id="${g.id}">Set my place</button>`}<button class="btn ghost" data-act="series" data-id="${g.id}">About the series</button></div></div></div>`;
+     <p class="muted">You're at ${esc(pr.label)}.${t?` <b style="color:var(--ink)">${fmt(t.facts)}</b> of ${fmt(all.facts)} entries open.`:''}</p><div class="now-bar" aria-hidden="true"><i style="width:${Math.max(2,Math.round(pr.pos/pr.max*100))}%"></i></div>
+     <div class="now-act"><button class="btn" data-act="guide" data-id="${g.id}">Continue reading</button><button class="btn ghost" data-act="series" data-id="${g.id}">About the series</button></div></div></div>`;
 }
+/* the hub: every series is a tile. Adding a series means adding one entry to GUIDES */
 function libraryView(){
-  const soon=GUIDES.filter(x=>!x.live),on=LIVE.filter(g=>progOf(g.id)),off=LIVE.filter(g=>!progOf(g.id));
-  on.sort((a,b)=>(b.id===GID)-(a.id===GID));
-  const sec=(title,gs)=>gs.length?`<section><div class="h-sec"><h3>${title}</h3><span class="pill live">${gs.length>1?gs.length+' guides':'Guide ready'}</span></div><div class="nowlist">${gs.map(nowCard).join('')}</div></section>`:'';
+  const on=LIVE.filter(g=>progOf(g.id)).sort((a,b)=>(b.id===GID)-(a.id===GID)),first=!store.get('seen',false);
+  const tile=x=>{const live=x.live&&GUIDE_DATA[x.id],pr=live?progOf(x.id):null;
+    return `<button class="tile${live?'':' tba'}" data-act="open" data-id="${x.id}"><span class="plate">${SCENES.svg(x.art[0])}</span><span class="tile-t"><b>${esc(x.name)}</b><small>${esc(x.author)}</small>${
+      !live?'<span class="pill">Coming soon</span>':pr?`<span class="pill live">Reading · ${Math.round(pr.pos/pr.max*100)}%</span>`:`<span class="pill live">${partial(x)?`Book ${GUIDE_DATA[x.id].BOOKS.length} of ${x.total} ready`:'Guide ready'}</span>`}</span></button>`};
   return `<div class="home-bar"><div><h1>Parapet</h1><p class="hb-sub">Spoiler-safe reading companions</p></div>${themeSw()}</div>
-  <div><h2 class="h-display"><span class="nw">Look anything up.</span> <span class="nw">Spoil nothing.</span></h2>
-   <p class="h-lede" style="margin-top:10px">Guides to long fantasy series that only show what you've already read. Tell a guide your chapter, and everything past it stays sealed.</p></div>
-  ${sec('Reading now',on)}${sec('Ready to read',off)}
-  <section><div class="h-sec"><h3>Coming soon</h3><span class="count">${soon.length} guides planned</span></div>
-   <div class="shelf">${soon.map(x=>`<button class="scard" data-act="series" data-id="${x.id}">${cover(x)}<strong>${esc(x.name)}</strong><small>${esc(x.author)} · ${esc(x.count)}</small><span class="pill">Coming soon</span></button>`).join('')}</div>
+  <div class="hub-hero${first?' first':''}">${first?`<div class="ob-art">${SCENES.svg('book:night')}</div>`:''}
+   <div><h2 class="h-display"><span class="nw">Look anything up.</span> <span class="nw">Spoil nothing.</span></h2>
+   <p class="h-lede" style="margin-top:10px">Guides to long fantasy series that only show what you've already read. Pick a series, tell it your chapter, and everything past it stays sealed.</p></div>
+   ${first?`<div><div class="h-sec"><h3>How it works</h3></div>${demoHtml()}<p class="note" style="margin-top:8px">Try it: move the chapter and watch what opens.</p></div>`:''}</div>
+  ${on.length?`<section><div class="h-sec"><h3>Continue reading</h3></div><div class="nowlist">${on.map(nowCard).join('')}</div></section>`:''}
+  <section><div class="h-sec"><h3>${on.length?'All series':'Choose a series'}</h3><span class="count">${LIVE.length} ready · ${GUIDES.length-LIVE.length} coming</span></div>
+   <div class="bookgrid hub">${GUIDES.map(tile).join('')}</div>
    <p class="note" style="margin-top:12px">Each guide is written chapter by chapter from the books, so new ones take time.</p></section>
   ${homeFoot()}`;
 }
@@ -6454,13 +6465,6 @@ function demoHtml(){
 function obBody(){
   const g=guideOf(OB.guide),D=GUIDE_DATA[g.id].BOOKS;
   const thumb=x=>`<span class="thumb" aria-hidden="true">${SCENES.svg(x.art[0])}</span>`;
-  if(OB.step===0)return `<div class="ob-art">${SCENES.svg('book:night')}</div><span class="eyebrow">Welcome to Parapet</span><h2 class="h-display"><span class="nw">Look anything up.</span> <span class="nw">Spoil nothing.</span></h2>
-   <p class="h-lede">Parapet is a reading companion for long fantasy series. Tell it the chapter you're on, and it shows you who's who, what they can do and where everything is, using only what you've already read.</p>
-   ${demoHtml()}<p class="note">Try it: move the chapter and watch what opens.</p>`;
-  if(OB.step===1){const pk=OB.peek&&guideOf(OB.peek);
-   return `<span class="eyebrow">Step 2 of 4</span><h2 class="h-display">What are you reading?</h2>
-   <div class="bookgrid" role="radiogroup" aria-label="Series">${LIVE.map(x=>`<button class="tile" role="radio" aria-checked="${x.id===OB.guide}" data-act="ob-guide" data-id="${x.id}"><span class="plate">${SCENES.svg(x.art[0])}</span><span class="tile-t"><b>${esc(x.name)}</b><small>${esc(x.author)}</small><span class="pill live">${partial(x)?`Book ${GUIDE_DATA[x.id].BOOKS.length} of ${x.total} ready`:'Guide ready'}</span></span></button>`).join('')}${GUIDES.filter(x=>!x.live).map(x=>`<button class="tile tba" data-act="ob-peek" data-id="${x.id}" aria-pressed="${OB.peek===x.id}"><span class="plate">${SCENES.svg(x.art[0])}</span><span class="tile-t"><b>${esc(x.name)}</b><small>${esc(x.author)}</small><span class="pill">Coming soon</span></span></button>`).join('')}</div>
-   <p class="note" role="status">${pk?`${esc(pk.hook)} The guide isn't written yet; it's on the list.`:`${LIVE.length===1?'One guide is':LIVE.length+' guides are'} ready today. Tap a coming one for a taste of it.`}</p>`}
   if(OB.step===2)return `<span class="eyebrow">${esc(g.name)} · ${esc(g.author)}</span><h2 class="h-display">${esc(g.hook)}</h2>
    ${g.pitch.map((p,i)=>`<div class="pitchcard"><div class="plate">${SCENES.svg(g.art[i%g.art.length])}</div><p>${esc(p)}</p></div>`).join('')}
    <div class="vibes">${g.vibes.map(v=>`<span>${esc(v)}</span>`).join('')}</div>
@@ -6469,7 +6473,7 @@ function obBody(){
   const bk=D.find(b=>b.id===OB.book)||D[0],opts=[];for(let c=bk.first;c<=bk.last;c++)opts.push(`<option value="${bk.id+c}" ${OB.at===bk.id+c?'selected':''}>${c===0?'Prologue':bk.epi===c?'Epilogue':'Chapter '+c}</option>`);
   const o=(k,t,s)=>`<button class="opt" role="radio" aria-checked="${OB.where===k}" data-act="ob-where" data-id="${k}"><span class="rd"></span><span><b>${t}</b><small>${s}</small></span></button>`;
   const part=partial(g),one=D.length===1;
-  return `<div class="ob-art">${SCENES.svg('train:'+(g.id==='hp'?'day':'dusk'))}</div><span class="eyebrow">Step 4 of 4</span><h2 class="h-display">Where are you in the series?</h2>
+  return `<div class="ob-art">${SCENES.svg('train:'+(g.id==='hp'?'day':'dusk'))}</div><span class="eyebrow">${esc(g.name)} · Last step</span><h2 class="h-display">Where are you in the series?</h2>
    <div class="pick" role="radiogroup" aria-label="Where are you in the series?">
     ${o('new',"I haven't started yet",`The guide opens at chapter 1 of ${esc(D[0].name)}, with only the opening cast.`)}
     ${o('mid',one?`I'm reading ${esc(D[0].name)}`:"I'm reading it","Pick the last chapter you finished.")}
@@ -6481,14 +6485,16 @@ function obBody(){
 }
 function onboardView(){
   const last=OB.step===3;
-  return `<div class="ob"><div class="ob-top"><span class="ob-dots" aria-hidden="true">${[0,1,2,3].map(i=>`<i class="${i<=OB.step?'on':''}"></i>`).join('')}</span><button class="textbtn" data-act="ob-skip">Skip</button></div>
+  return `<div class="ob"><div class="ob-top"><button class="backbtn" data-act="library">${ico('back')}Library</button><span class="ob-dots" aria-hidden="true">${[2,3].map(i=>`<i class="${i<=OB.step?'on':''}"></i>`).join('')}</span></div>
    <div class="ob-body">${obBody()}</div>
-   <div class="ob-foot">${OB.step?`<button class="btn ghost" data-act="ob-back">Back</button>`:''}<button class="btn${last?' seal':''}" data-act="${last?'ob-done':'ob-next'}" ${last&&!OB.where?'disabled':''}>${OB.step===0?'Get started':OB.step===2?"I'm in":last?'Open the guide':'Continue'}</button></div></div>`;
+   <div class="ob-foot"><button class="btn ghost" data-act="ob-back">Back</button><button class="btn${last?' seal':''}" data-act="${last?'ob-done':'ob-next'}" ${last&&!OB.where?'disabled':''}>${last?'Open the guide':"I'm in"}</button></div></div>`;
 }
 function obRender(focus){$('#homeIn').innerHTML=onboardView();if(focus){$('#home').scrollTop=0;const h=$('#homeIn h2');if(h){h.tabIndex=-1;try{h.focus({preventScroll:true})}catch(e){}}}}
 /* the demo plays once by itself: chapter 1, then 3, then 6. It waits for the splash to clear first */
-function obDemoPlay(){clearInterval(OB.timer);const seq=[3,6];let i=0;const go=()=>{OB.timer=setInterval(()=>{if(!HOME||HOME.v!=='onboard'||OB.step!==0||i>=seq.length){clearInterval(OB.timer);return}OB.just=OB.ch=seq[i++];obRender()},1300)};
+function obDemoPlay(){clearInterval(OB.timer);const seq=[3,6];let i=0;const go=()=>{OB.timer=setInterval(()=>{if(!HOME||HOME.v!=='library'||i>=seq.length){clearInterval(OB.timer);return}OB.just=OB.ch=seq[i++];demoPaint()},1300)};
   const sp=document.getElementById('splash');const shown=sp&&!document.documentElement.classList.contains('no-splash');setTimeout(go,shown?1500:300)}
+function demoPaint(){const d=$('#homeIn .demo');if(d&&'outerHTML' in d)d.outerHTML=demoHtml()}
+function startTour(id,step){clearInterval(OB.timer);OB.guide=id;OB.step=step||2;OB.where=null;OB.book=null;OB.at=null;showHome({v:'onboard'},true)}
 function obFinish(skip){
   clearInterval(OB.timer);store.set('seen',true);
   const D=GUIDE_DATA[OB.guide].BOOKS,lastB=D[D.length-1];
@@ -6499,16 +6505,18 @@ function obFinish(skip){
 }
 function arriveToast(fresh){toast(fresh?`Showing ${BOOKS[0].name}, chapter 1. Update your progress any time.`:S.pos===MAX?'Everything in the guide is open.':`Unlocked through ${chName(S.pos)}.`)}
 function homeAct(a,el){
-  const id=el&&el.dataset.id,other=id&&id!==GID&&GUIDE_DATA[id]&&['guide','progress','begin','start1'].includes(a);
+  const id=el&&el.dataset.id,other=id&&id!==GID&&GUIDE_DATA[id]&&['guide','progress','start1'].includes(a);
+  if(a==='open'){const g=guideOf(id);if(!(g&&g.live&&GUIDE_DATA[id])){showHome({v:'series',id},true);return true}if(!progOf(id)){startTour(id,2);return true}if(id!==GID){switchGuide(id,'guide');return true}enterGuide(true);return true}
+  if(a==='begin'){startTour(id||GID,HOME&&HOME.v==='series'?3:2);return true}
   if(other){if(a==='start1'){const b=GUIDE_DATA[id].BOOKS[0];gstore.set(gkey('pos',id),b.id+Math.max(1,b.first))}switchGuide(id,a);return true}
   if(a==='library'){showHome({v:'library'},true);return true}
   if(a==='series'){showHome({v:'series',id:id||GID},true);return true}
   if(a==='guide'){enterGuide(true);return true}
-  if(a==='progress'||a==='begin'){enterGuide(true);openSheet();return true}
+  if(a==='progress'){enterGuide(true);openSheet();return true}
   if(a==='start1'){S.pos=DEFAULT_POS;store.set('pos',chCode(S.pos));S.peeked.clear();enterGuide(true);toast(`Showing ${BOOKS[0].name}, chapter 1.`);return true}
-  if(a==='demo+'||a==='demo-'){clearInterval(OB.timer);const before=OB.ch;OB.ch=Math.max(1,Math.min(10,OB.ch+(a==='demo+'?1:-1)));OB.just=DEMO.some(d=>d[0]===OB.ch)&&OB.ch>before?OB.ch:0;obRender();const b=$(`[data-act="${a}"]`);if(b&&!b.disabled)b.focus();return true}
-  if(a==='ob-next'){clearInterval(OB.timer);OB.step=Math.min(3,OB.step+1);OB.peek=null;obRender(true);return true}
-  if(a==='ob-back'){OB.step=Math.max(0,OB.step-1);obRender(true);return true}
+  if(a==='demo+'||a==='demo-'){clearInterval(OB.timer);const before=OB.ch;OB.ch=Math.max(1,Math.min(10,OB.ch+(a==='demo+'?1:-1)));OB.just=DEMO.some(d=>d[0]===OB.ch)&&OB.ch>before?OB.ch:0;demoPaint();const b=$(`[data-act="${a}"]`);if(b&&!b.disabled)b.focus();return true}
+  if(a==='ob-next'){OB.step=3;obRender(true);return true}
+  if(a==='ob-back'){if(OB.step<=2||(HOME&&HOME.from==='series'))showHome({v:'library'},true);else{OB.step=2;obRender(true)}return true}
   if(a==='ob-peek'){OB.peek=id;obRender();return true}
   if(a==='ob-guide'){OB.guide=id;OB.peek=null;OB.book=null;OB.at=null;OB.where=null;obRender();const b=$(`[data-act="ob-guide"][data-id="${id}"]`);if(b)b.focus();return true}
   if(a==='ob-where'){const el2=$('#obCh');if(el2)OB.at=el2.value;OB.where=id;obRender();const b=$(`[data-act="ob-where"][data-id="${OB.where}"]`);if(b)b.focus();return true}
@@ -6517,7 +6525,7 @@ function homeAct(a,el){
   if(a==='ob-skip'){obFinish(true);return true}
   return false;
 }
-function renderSideLinks(){const el=$('#sideLinks');if(el)el.innerHTML=`<button data-act="library">${ico('library')}Library</button><button data-act="series" data-id="${GID}">${ico('info')}About the series</button>`}
+function renderSideLinks(){const el=$('#sideLinks');if(el)el.innerHTML=`<button data-act="series" data-id="${GID}">${ico('info')}About the series</button>`}
 
 /* splash: drop it from the page once it has faded; a tap skips it */
 try{const sp=$('#splash');if(sp){const done=()=>{if(sp.parentNode)sp.remove()};
@@ -6530,10 +6538,11 @@ renderRail();renderView();renderSideLinks();
 {const bs=$('#brandSub');if(bs)bs.textContent=CFG.sub;const fl=$('#footLead');if(fl)fl.textContent=CFG.foot}
 /* arriving from another guide: finish what the reader asked for there */
 let arriving=null;try{arriving=sessionStorage.getItem('parapet.go');sessionStorage.removeItem('parapet.go')}catch(e){}
+/* the browser's back button always has the library underneath the guide */
+if(!S.editor){try{history.replaceState({home:{v:'library'}},'');if(arriving||TABS.some(t=>t[0]===h))history.pushState({home:null},'')}catch(e){}}
 if(arriving){if(arriving==='progress'||arriving==='begin')openSheet();else if(arriving==='start1')toast(`Showing ${BOOKS[0].name}, chapter 1.`);else if(arriving==='arrive')arriveToast(!started())}
-/* first visit: the welcome flow. Returning readers go straight back to their guide */
-else if(!S.editor&&!store.get('seen',false)&&!started()){showHome({v:'onboard'});obDemoPlay()}
-else if(h==='library')showHome({v:'library'});
+/* the library is the front door. A link straight to a section, or the editor, opens the guide */
+else if(!S.editor&&!TABS.some(t=>t[0]===h)){showHome({v:'library'});if(!store.get('seen',false))obDemoPlay()}
 </script>
 
 </body>
